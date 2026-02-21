@@ -31,7 +31,7 @@ interface AnimalCardListProps {
   size?: number[];
   onCardCountChange: (count: number) => void;
   maxNum?: number;
-  // ... any other filters
+  includeFanMade?: boolean;
 }
 
 const filterAnimals = (
@@ -84,6 +84,7 @@ export const AnimalCardList: React.FC<AnimalCardListProps> = ({
   sortOrder = SortOrder.ID_ASC,
   size = [0],
   maxNum,
+  includeFanMade = false,
 }) => {
   const { t } = useTranslation('common');
   // 监听评分数据，但不主动获取（由点击触发）
@@ -92,7 +93,7 @@ export const AnimalCardList: React.FC<AnimalCardListProps> = ({
     staleTime: 5 * 60 * 1000, // 5分钟缓存
   });
 
-  const animalsData = useAnimalData();
+  const animalsData = useAnimalData(includeFanMade);
   const filteredAnimals = filterAnimals(
     animalsData,
     selectedTags,

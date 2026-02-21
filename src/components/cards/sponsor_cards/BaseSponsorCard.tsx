@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import Effect from '@/components/abilities/Effect';
@@ -12,6 +13,20 @@ interface AnimalCardProps {
 
 export const BaseSponsorCard: React.FC<AnimalCardProps> = ({ sponsor }) => {
   const { t } = useTranslation('common');
+
+  if (sponsor.directUseImage && sponsor.image) {
+    return (
+      <SponsorCardWrapper id={sponsor.id}>
+        <Image
+          src={sponsor.image}
+          alt={t(sponsor.name)}
+          width={373}
+          height={497}
+          className='h-full w-full rounded-md object-cover'
+        />
+      </SponsorCardWrapper>
+    );
+  }
 
   return (
     <SponsorCardWrapper id={sponsor.id}>

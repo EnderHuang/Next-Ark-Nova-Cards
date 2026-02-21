@@ -1,4 +1,5 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
@@ -13,6 +14,7 @@ import { TextFilter } from '@/components/filters/TextFilter';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 import { CardOdometer } from '@/components/ui/CardOdometer';
+import { FanModeBanner } from '@/components/ui/FanModeBanner';
 import { Separator } from '@/components/ui/separator';
 
 import { CardType } from '@/types/Card';
@@ -26,6 +28,7 @@ type Props = {
 export default function EndGamePage(
   _props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
+  const router = useRouter();
   const { t } = useTranslation('common');
   const [conservationCount, setConservationCount] = useState<number>(0);
   const [endGameCardsCount, setEndGameCardsCount] = useState<number>(0);
@@ -36,6 +39,8 @@ export default function EndGamePage(
     [],
   );
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ID_ASC);
+
+  const includeFanMade = router.query.fan === '1';
 
   useEffect(() => {
     if (reset) {
@@ -58,6 +63,8 @@ export default function EndGamePage(
       {/* <Seo templateTitle='Home' /> */}
       <Seo templateTitle='Cards' />
 
+      {includeFanMade && <FanModeBanner />}
+
       <main>
         <div className='flex flex-col space-y-4 px-2 py-2 md:px-4'>
           <div className='flex flex-col md:flex-row'>
@@ -70,6 +77,7 @@ export default function EndGamePage(
             <CardSourceFilter
               onFilterChange={setSelectedCardSources}
               reset={reset}
+              includeFanMade={includeFanMade}
             />
           </div>
           <div className='flex flex-row space-x-4'>
@@ -103,8 +111,8 @@ export default function EndGamePage(
           <ProjectCardList
             selectedCardSources={selectedCardSources}
             textFilter={textFilter}
-            // sortOrder={sortOrder}
             onCardCountChange={setConservationCount}
+            includeFanMade={includeFanMade}
           />
         )}
         {(selectedCardTypes.includes(CardType.END_GAME_CARD) ||

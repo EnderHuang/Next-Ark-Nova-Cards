@@ -28,6 +28,20 @@ interface AnimalCardProps {
 export const BaseAnimalCard: React.FC<AnimalCardProps> = ({ animal }) => {
   const { t } = useTranslation('common');
 
+  if (animal.directUseImage && animal.image) {
+    return (
+      <AnimalCardWrapper id={animal.id}>
+        <Image
+          src={animal.image}
+          alt={t(animal.name)}
+          width={373}
+          height={497}
+          className='h-full w-full rounded-md object-cover'
+        />
+      </AnimalCardWrapper>
+    );
+  }
+
   let dataSize = 1;
   if (animal.reputation !== undefined) dataSize += 1;
   if (animal.conservationPoint !== undefined) dataSize += 1;

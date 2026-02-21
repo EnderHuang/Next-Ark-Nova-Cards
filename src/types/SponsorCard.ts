@@ -18,6 +18,7 @@ export interface SponsorCard {
   id: string;
   name: string;
   image?: string;
+  directUseImage?: boolean;
 
   // upper
   strength: number; // Size;

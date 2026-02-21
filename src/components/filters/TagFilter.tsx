@@ -8,10 +8,15 @@ import { AnimalTag, ContinentTag, otherCardTags, Tag } from '@/types/Tags';
 type TagFilterProps = {
   onFilterChange: (tags: Tag[]) => void;
   reset: boolean;
+  includeFanMade?: boolean;
 };
+
+const FAN_MADE_TAGS = [AnimalTag.Prehistoric];
+
 export const TagFilter: React.FC<TagFilterProps> = ({
   onFilterChange,
   reset,
+  includeFanMade = false,
 }) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
@@ -27,16 +32,18 @@ export const TagFilter: React.FC<TagFilterProps> = ({
     }
   }, [reset]);
 
-  // logic: and, or
-
   React.useEffect(() => {
     onFilterChange(selectedTags);
   }, [selectedTags]);
 
+  const animalTags = Object.values(AnimalTag).filter(
+    (tag) => includeFanMade || !FAN_MADE_TAGS.includes(tag),
+  );
+
   return (
     <>
       <div className='xl:grid-cols-auto grid grid-cols-4 gap-2 md:grid-cols-6 lg:grid-cols-8'>
-        {Object.values(AnimalTag).map((tag, index) => (
+        {animalTags.map((tag, index) => (
           <TagButton
             key={index}
             tag={tag}

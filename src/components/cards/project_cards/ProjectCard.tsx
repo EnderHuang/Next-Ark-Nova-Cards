@@ -1,4 +1,5 @@
 // ProjectCard.tsx
+import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import ParseDescription from '@/components/abilities/ParseDescription';
@@ -23,6 +24,20 @@ interface ProjectCardProps {
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { t } = useTranslation('common');
+
+  if (project.directUseImage && project.image) {
+    return (
+      <ProjectCardWrapper project={project}>
+        <Image
+          src={project.image}
+          alt={t(project.name)}
+          width={373}
+          height={497}
+          className='h-full w-full rounded-md object-cover'
+        />
+      </ProjectCardWrapper>
+    );
+  }
 
   const isWide = (type: ProjectCategory) => {
     return (

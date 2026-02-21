@@ -1,3 +1,10 @@
+/*
+ * @Author: Ender Wiggin
+ * @Date: 2026-02-22 00:14:04
+ * @LastEditors: Ender Wiggin
+ * @LastEditTime: 2026-02-22 00:47:33
+ * @Description:
+ */
 import { Bonus } from '@/types/Bonus';
 import { CardSource } from '@/types/CardSource';
 import { Effect } from '@/types/Effect';
@@ -15,6 +22,7 @@ export enum ProjectCategory {
   RELEASE = 'Release',
   BREED = 'Breed',
   MARINE = 'Marine',
+  FAN_MADE = 'Fan Made',
 }
 
 export interface ProjectCard {
@@ -22,6 +30,7 @@ export interface ProjectCard {
   name: string;
   type: ProjectCategory;
   image?: string;
+  directUseImage?: boolean;
   tag: Tag;
   slots: ProjectSlot[];
   placeBonuses: Bonus[];

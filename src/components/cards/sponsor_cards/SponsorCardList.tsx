@@ -35,7 +35,7 @@ interface SponsorCardListProps {
   onCardCountChange: (count: number) => void;
   showHumanSponsors?: boolean;
   maxNum?: number;
-  // ... any other filters
+  includeFanMade?: boolean;
 }
 
 const hasRockAndWaterRequirements = (sponsor: TypedSponsorCard, req: Tag) => {
@@ -107,6 +107,7 @@ export const SponsorCardList: React.FC<SponsorCardListProps> = ({
   showHumanSponsors = false,
   strength = [0],
   maxNum,
+  includeFanMade = false,
 }) => {
   const { t } = useTranslation('common');
   // 监听评分数据，但不主动获取（由点击触发）
@@ -114,7 +115,7 @@ export const SponsorCardList: React.FC<SponsorCardListProps> = ({
     enabled: false, // 不主动获取
     staleTime: 5 * 60 * 1000, // 5分钟缓存
   });
-  const sponsorsData = useSponsorData();
+  const sponsorsData = useSponsorData(includeFanMade);
   const filteredSponsors = filterSponsors(
     sponsorsData,
     selectedTags,

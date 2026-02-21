@@ -19,6 +19,7 @@ export interface AnimalCard {
   latinName?: string;
   endangeredCategory?: EndangeredCategory;
   image?: string;
+  directUseImage?: boolean;
 
   // upper
   size: number; // Size;

@@ -1,3 +1,10 @@
+/*
+ * @Author: Ender Wiggin
+ * @Date: 2026-02-22 00:14:04
+ * @LastEditors: Ender Wiggin
+ * @LastEditTime: 2026-02-22 01:55:22
+ * @Description:
+ */
 // CategoryFilter.tsx
 import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
@@ -9,11 +16,13 @@ import { CardSource } from '@/types/CardSource';
 type CardSourceFilterProps = {
   onFilterChange: (sources: CardSource[]) => void;
   reset: boolean;
+  includeFanMade?: boolean;
 };
 
 export const CardSourceFilter: React.FC<CardSourceFilterProps> = ({
   onFilterChange,
   reset,
+  includeFanMade = false,
 }) => {
   const { t } = useTranslation('common');
   const [selectedCardSource, setSelectedCardSource] = useState<CardSource[]>(
@@ -64,7 +73,16 @@ export const CardSourceFilter: React.FC<CardSourceFilterProps> = ({
       >
         {t('Promo')}
       </TextButton>
-      {/*<TextButton onClick={() => handleCategoryChange(null)}>All Cards</TextButton>*/}
+      {includeFanMade && (
+        <TextButton
+          selected={selectedCardSource.includes(CardSource.FAN_MADE)}
+          className='hover:text-[#6D401D]'
+          selectClassName='text-[#6D401D] ring-[#6D401D]/90 ring-2'
+          onClick={() => handleCategoryChange(CardSource.FAN_MADE)}
+        >
+          {t('Fan Made')}
+        </TextButton>
+      )}
     </div>
   );
 };

@@ -13,6 +13,7 @@ interface ProjectCardListProps {
   selectedCardSources?: CardSource[];
   textFilter?: string;
   onCardCountChange: (count: number) => void;
+  includeFanMade?: boolean;
 }
 
 const filterCards = (
@@ -36,8 +37,9 @@ export const ProjectCardList: React.FC<ProjectCardListProps> = ({
   selectedCardSources = [],
   textFilter,
   onCardCountChange,
+  includeFanMade = false,
 }) => {
-  const projectsData = useProjectData();
+  const projectsData = useProjectData(includeFanMade);
 
   const filteredConservations = filterCards(
     projectsData,

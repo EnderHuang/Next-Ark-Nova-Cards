@@ -11,6 +11,8 @@ export enum AnimalTag {
   Bear = 'bear',
   // Marine World
   SeaAnimal = 'seaAnimal',
+  // Fan
+  Prehistoric = 'prehistoric',
 }
 
 export enum ContinentTag {
@@ -48,6 +50,8 @@ export enum OtherTag {
   Kiosk = 'kiosk',
   ALL_ANIMALS = 'all-animals',
   ALL_CONTINENTS = 'all-continents',
+  // Fan
+  Electrical = 'electrical',
 }
 
 export function isAnimalTag(tag: string): boolean {

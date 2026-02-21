@@ -1,4 +1,5 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useMemo, useState } from 'react';
@@ -18,6 +19,7 @@ import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 import { Button } from '@/components/ui/button';
 import { CardOdometer } from '@/components/ui/CardOdometer';
+import { FanModeBanner } from '@/components/ui/FanModeBanner';
 import { Separator } from '@/components/ui/separator';
 
 import { CardType } from '@/types/Card';
@@ -34,8 +36,11 @@ const INIT_MAX_NUM = 20;
 export default function HomePage(
   _props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
+  const router = useRouter();
   const { t } = useTranslation('common');
   const [reset, setReset] = useState<boolean>(false);
+
+  const includeFanMade = router.query.fan === '1';
 
   // limit the number of cards to be displayed for optimization
   const [totalMaxNum, setTotalMaxNum] = useState<number>(INIT_MAX_NUM);
@@ -115,6 +120,8 @@ export default function HomePage(
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
 
+      {includeFanMade && <FanModeBanner />}
+
       <main>
         <div className='flex flex-col space-y-4 px-2 py-2 md:px-4'>
           <div className='flex flex-col md:flex-row'>
@@ -127,9 +134,14 @@ export default function HomePage(
             <CardSourceFilter
               onFilterChange={setSelectedCardSources}
               reset={reset}
+              includeFanMade={includeFanMade}
             />
           </div>
-          <TagFilter onFilterChange={setSelectedTags} reset={reset} />
+          <TagFilter
+            onFilterChange={setSelectedTags}
+            reset={reset}
+            includeFanMade={includeFanMade}
+          />
           <RequirementFilter
             onFilterChange={setSelectedRequirements}
             reset={reset}
@@ -174,6 +186,7 @@ export default function HomePage(
               onCardCountChange={setAnimalCardsCount}
               size={size}
               maxNum={animalMaxNum}
+              includeFanMade={includeFanMade}
             />
           )}
           {(selectedCardTypes.length === 0 ||
@@ -187,6 +200,7 @@ export default function HomePage(
               onCardCountChange={setSponsorCardsCount}
               strength={strength}
               maxNum={sponsorMaxNum}
+              includeFanMade={includeFanMade}
             />
           )}
           {shouldDisplayViewMore && (
