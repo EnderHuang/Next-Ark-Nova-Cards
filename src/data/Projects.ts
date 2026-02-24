@@ -1517,7 +1517,7 @@ export const ProjectsData: ProjectCard[] = [
     placeBonuses: [],
     description: {
       effectType: EffectType.CONSERVATION,
-      effectDesc: 'project.desc_131',
+      effectDesc: 'project.desc_132',
     },
     // meta data
     source: CardSource.BASE,
