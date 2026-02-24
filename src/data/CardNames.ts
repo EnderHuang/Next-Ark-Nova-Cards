@@ -246,4 +246,12 @@ export const cardNames: Record<string, string> = {
   '558': 'A558_NorthernMuriqui',
   '559': 'A559_CoquerelsSifaka',
   '560': 'A560_BrahminyKite',
+
+  // Prehistoric Sponsors
+  '831': 'S831_PrehistoricZoologist',
+  '832': 'S832_MonstersInc',
+  '833': 'S833_MaiasauraSanctuary',
+  '834': 'S834_VelociraptorTrainingRoom',
+  '835': 'S835_GlobalPaleontologyMuseum',
+  '836': 'S836_JurassicPark',
 };

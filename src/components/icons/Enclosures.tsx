@@ -8,6 +8,7 @@ interface EnclosuresProps {
   size: number;
   rock?: number;
   water?: number;
+  electrical?: number;
   canBeInStandardEnclosure?: boolean;
   specialEnclosures?: SpecialEnclosure[];
 }
@@ -16,18 +17,21 @@ const Enclosures: React.FC<EnclosuresProps> = ({
   size,
   rock,
   water,
+  electrical,
   canBeInStandardEnclosure,
   specialEnclosures,
 }) => {
   const hasSpecialEnclosures =
     specialEnclosures && specialEnclosures.length > 0;
   const needWide =
-    hasSpecialEnclosures || (rock && rock > 0) || (water && water > 0);
+    hasSpecialEnclosures ||
+    (rock && rock > 0) ||
+    (water && water > 0) ||
+    (electrical && electrical > 0);
   const enclosureClass = cn('animal-card-enclosure-cost', {
     wide: needWide,
   });
 
-  // if (canBeInStandardEnclosure !== undefined) console.log(canBeInStandardEnclosure);
   return (
     <div className={enclosureClass}>
       <div
@@ -41,6 +45,7 @@ const Enclosures: React.FC<EnclosuresProps> = ({
           size={size}
           rock={rock}
           water={water}
+          electrical={electrical}
           forbidden={
             canBeInStandardEnclosure !== undefined && !canBeInStandardEnclosure
           }

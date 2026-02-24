@@ -25,6 +25,7 @@ export interface AnimalCard {
   size: number; // Size;
   rock?: number;
   water?: number;
+  electrical?: number;
   price: number;
   requirements?: Tag[];
   tags: Tag[];
@@ -102,6 +103,7 @@ export const AnimalCardSchema = z.object({
   size: z.number(),
   rock: z.optional(z.number()),
   water: z.optional(z.number()),
+  electrical: z.optional(z.number()),
   price: z.number(),
   requirements: z.optional(
     z.array(TagSchema).max(3, 'Only support 3 requirements'),

@@ -713,7 +713,35 @@
   .ark-card-top-left
   .animal-card-enclosure-cost
   .animal-card-enclosure
-  > div.icon-enclosure-regular-water-water {
+  > div.icon-enclosure-regular-water-water,
+.ark-card.zoo-card.animal-card
+  .ark-card-wrapper
+  .ark-card-top
+  .ark-card-top-left
+  .animal-card-enclosure-cost
+  .animal-card-enclosure
+  > div.icon-enclosure-regular-electrical,
+.ark-card.zoo-card.animal-card
+  .ark-card-wrapper
+  .ark-card-top
+  .ark-card-top-left
+  .animal-card-enclosure-cost
+  .animal-card-enclosure
+  > div.icon-enclosure-regular-electrical-rock,
+.ark-card.zoo-card.animal-card
+  .ark-card-wrapper
+  .ark-card-top
+  .ark-card-top-left
+  .animal-card-enclosure-cost
+  .animal-card-enclosure
+  > div.icon-enclosure-regular-electrical-water,
+.ark-card.zoo-card.animal-card
+  .ark-card-wrapper
+  .ark-card-top
+  .ark-card-top-left
+  .animal-card-enclosure-cost
+  .animal-card-enclosure
+  > div.icon-enclosure-regular-electrical-electrical {
   box-sizing: border-box;
   padding-right: 31.44px;
   width: 85.92px;
@@ -3277,6 +3305,33 @@
   background-image: url(/img/sponsors/S282_PromotionTeam.jpg);
 }
 
+/* Prehistoric Sponsors */
+.zoo-card.sponsor-card[data-id="S831_PrehistoricZoologist"] .ark-card-wrapper {
+  background-image: url(/img/prehistoric/32.webp);
+}
+
+.zoo-card.sponsor-card[data-id="S832_MonstersInc"] .ark-card-wrapper {
+  background-image: url(/img/prehistoric/33.webp);
+}
+
+.zoo-card.sponsor-card[data-id="S833_MaiasauraSanctuary"] .ark-card-wrapper {
+  background-image: url(/img/prehistoric/34.webp);
+}
+
+.zoo-card.sponsor-card[data-id="S834_VelociraptorTrainingRoom"]
+  .ark-card-wrapper {
+  background-image: url(/img/prehistoric/35.webp);
+}
+
+.zoo-card.sponsor-card[data-id="S835_GlobalPaleontologyMuseum"]
+  .ark-card-wrapper {
+  background-image: url(/img/prehistoric/36.webp);
+}
+
+.zoo-card.sponsor-card[data-id="S836_JurassicPark"] .ark-card-wrapper {
+  background-image: url(/img/prehistoric/37.webp);
+}
+
 [data-starting-appeal="10"]
   .zoo-card.sponsor-card[data-id="S207_BasicResearch"]
   .ark-card-wrapper {
@@ -4749,6 +4804,30 @@
   background-size: 1144.1340782122904%;
 }
 
+.arknova-icon.icon-enclosure-regular-electrical {
+  background-image: url(/img/icons-2.webp);
+  background-position: 19.71642589620118% 67.37012987012987%;
+  background-size: 1144.1340782122904%;
+}
+
+.arknova-icon.icon-enclosure-regular-electrical-rock {
+  background-image: url(/img/icons-2.webp);
+  background-position: 29.82878544676297% 67.37012987012987%;
+  background-size: 1144.1340782122904%;
+}
+
+.arknova-icon.icon-enclosure-regular-electrical-water {
+  background-image: url(/img/icons-2.webp);
+  background-position: 39.94114499732477% 67.37012987012987%;
+  background-size: 1144.1340782122904%;
+}
+
+.arknova-icon.icon-enclosure-regular-electrical-electrical {
+  background-image: url(/img/icons-2.webp);
+  background-position: 50.053504547886575% 67.37012987012987%;
+  background-size: 1144.1340782122904%;
+}
+
 /* Marine World */
 
 .ark-card.zoo-card.animal-card .ark-card-wrapper
@@ -4835,7 +4914,21 @@
   .ark-card-top-left
   .animal-card-enclosure-cost
   .animal-card-enclosure-forbidden
-  > div.icon-enclosure-forbidden-water-water {
+  > div.icon-enclosure-forbidden-water-water,
+.ark-card.zoo-card.animal-card
+  .ark-card-wrapper
+  .ark-card-top
+  .ark-card-top-left
+  .animal-card-enclosure-cost
+  .animal-card-enclosure-forbidden
+  > div.icon-enclosure-forbidden-electrical,
+.ark-card.zoo-card.animal-card
+  .ark-card-wrapper
+  .ark-card-top
+  .ark-card-top-left
+  .animal-card-enclosure-cost
+  .animal-card-enclosure-forbidden
+  > div.icon-enclosure-forbidden-electrical-rock {
   box-sizing: border-box;
   padding-right: 31.44px;
   width: 85.92px;
@@ -4908,6 +5001,18 @@
 }
 
 .arknova-icon.icon-enclosure-forbidden-rock-rock {
+  background-position: 29.82878544676297% 89.55%;
+  background-size: 1144.1340782122904%;
+}
+
+.arknova-icon.icon-enclosure-forbidden-electrical {
+  background-image: url(/img/icons-2.webp);
+  background-position: 19.71642589620118% 89.55%;
+  background-size: 1144.1340782122904%;
+}
+
+.arknova-icon.icon-enclosure-forbidden-electrical-rock {
+  background-image: url(/img/icons-2.webp);
   background-position: 29.82878544676297% 89.55%;
   background-size: 1144.1340782122904%;
 }

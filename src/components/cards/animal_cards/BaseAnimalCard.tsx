@@ -87,6 +87,7 @@ export const BaseAnimalCard: React.FC<AnimalCardProps> = ({ animal }) => {
               size={animal.size}
               rock={animal.rock}
               water={animal.water}
+              electrical={animal.electrical}
               specialEnclosures={animal.specialEnclosures}
               canBeInStandardEnclosure={animal.canBeInStandardEnclosure}
             />

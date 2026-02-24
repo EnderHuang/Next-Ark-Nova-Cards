@@ -419,6 +419,19 @@ export class KeyWord {
     false,
   );
 
+  // Prehistoric keywords
+  static RALLY = new KeyWord('Rally', 'abilities.rally_description', 2);
+  static RUMBLING = new KeyWord(
+    'Rumbling',
+    'abilities.rumbling_description',
+    2,
+  );
+  static ANCESTOR = new KeyWord(
+    'Ancestor',
+    'abilities.ancestor_description',
+    2,
+  );
+
   constructor(
     public name: IconName | string,
     public descriptionTemplate: string,
@@ -514,6 +527,9 @@ export const ALL_KEYWORDS = [
   KeyWord.MARKETING,
   KeyWord.ADAPT,
   KeyWord.MONKEY_GANG,
+  KeyWord.RALLY,
+  KeyWord.RUMBLING,
+  KeyWord.ANCESTOR,
 ];
 
 export class Ability {

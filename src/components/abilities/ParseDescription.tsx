@@ -66,7 +66,10 @@ const ParseDescription: React.FC<ParseDescriptionProps> = ({ desc }) => {
     if (match) {
       const keywordAndParam = match[1].split('-');
       const keyword = keywordAndParam[0];
-      const param = keywordAndParam.length > 1 ? keywordAndParam[1] : undefined;
+      const param =
+        keywordAndParam.length > 1
+          ? keywordAndParam.slice(1).join('-')
+          : undefined;
       const value = desc instanceof Ability ? desc.value : '';
       if (keyword === 'TakeCardInRange') {
         return <TakeCardInRange key={index} />;
@@ -98,6 +101,10 @@ const ParseDescription: React.FC<ParseDescriptionProps> = ({ desc }) => {
         return <EnclosureIcon key={index} value={value} />;
       } else if (keyword === 'Size' && param === 'X+') {
         return <EmptySizeIcon key={index} value={value + '+'} />;
+      } else if (keyword === 'Size' && param === 'X-') {
+        return <EmptySizeIcon key={index} value={value + '-'} />;
+      } else if (keyword === 'Size' && param === 'X') {
+        return <EmptySizeIcon key={index} value={value} />;
       } else if (keyword === 'HerbivoreTag') {
         return <TagIcon key={index} type={AnimalTag.Herbivore} />;
       } else if (keyword === 'ReptileTag') {
