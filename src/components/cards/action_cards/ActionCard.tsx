@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
 
@@ -11,7 +10,6 @@ interface AnimalCardProps {
 }
 
 export const ActionCard: React.FC<AnimalCardProps> = ({ animal }) => {
-  const { t } = useTranslation('common');
   const [isFlipped, setIsFlipped] = React.useState(false);
 
   const handleClick = () => {
