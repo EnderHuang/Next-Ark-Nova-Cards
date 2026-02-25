@@ -63,12 +63,12 @@ export default function HomePage(
     <Layout>
       <Seo templateTitle='Ark Nova Maps & Alternatives' />
 
-      <div className='flex flex-col gap-4 px-2 py-2 md:px-4'>
+      <div className='flex flex-col gap-5 px-3 py-3 md:px-5'>
         <Alert className='bg-lime-500/40'>
           <Sparkles className='h-4 w-4' />
           <AlertTitle>{t('maps.alternative_title')}</AlertTitle>
           <AlertDescription>
-            <div className='flex justify-start gap-4'>
+            <div className='flex items-start justify-between gap-4'>
               <div className='max-w-2xl'>
                 <Trans i18nKey='maps.alternative_desc'>
                   Check the
@@ -90,35 +90,34 @@ export default function HomePage(
           </AlertDescription>
         </Alert>
 
-        <div className='grid grid-cols-3 justify-center gap-4 md:grid-cols-3 lg:grid-cols-4'>
+        <div className='grid grid-cols-2 gap-2 sm:grid-cols-3 md:gap-3 lg:grid-cols-4'>
           {maps.map((mapBoard) => (
-            <div key={mapBoard.name} className='w-min justify-self-center'>
-              <TextButton
-                selected={selectedMap === mapBoard}
-                className='h-12 hover:text-lime-600'
-                selectClassName='text-lime-600 ring-lime-600/90 ring-2'
-                onClick={() => handleSelectMap(mapBoard)}
-              >
-                {t(mapBoard.name)}
-              </TextButton>
-            </div>
+            <TextButton
+              key={mapBoard.name}
+              selected={selectedMap === mapBoard}
+              className='h-12 w-full text-xs hover:text-primary-600 sm:text-sm'
+              selectClassName='text-primary-600 ring-primary/70 ring-2'
+              onClick={() => handleSelectMap(mapBoard)}
+            >
+              {t(mapBoard.name)}
+            </TextButton>
           ))}
         </div>
-        <div className='flex w-full flex-col items-start justify-center rounded-lg bg-white/80 p-2 shadow-lg lg:p-4'>
+        <div className='flex w-full flex-col gap-3 rounded-lg bg-card/80 p-4 shadow-lg backdrop-blur-sm lg:p-5'>
           <Image
             alt={selectedMap.name}
             priority={true}
             src={`/img/maps/${selectedMap.image}.jpg`}
-            className='w-full rounded-md object-contain shadow-lg'
+            className='w-full rounded-md object-contain shadow-md'
             quality={85}
             width={1000}
             height={1000}
           />
-          <h1 className='scroll-m-20 pt-4 text-2xl font-extrabold tracking-tight text-lime-700 lg:text-4xl'>
+          <h1 className='text-2xl font-extrabold tracking-tight text-primary-700 dark:text-primary-400 lg:text-3xl'>
             {t(selectedMap.name)}
           </h1>
           {selectedMap.description.length > 0 && (
-            <p className='self-start leading-7 [&:not(:first-child)]:mt-6'>
+            <p className='leading-7 text-foreground/80'>
               {t(selectedMap.description[0])}
             </p>
           )}
@@ -127,7 +126,7 @@ export default function HomePage(
               <AccordionItem value='item-1'>
                 <AccordionTrigger>{t('maps.tips')}</AccordionTrigger>
                 <AccordionContent>
-                  <ul className='my-6 ml-6 list-disc'>
+                  <ul className='my-4 ml-6 list-disc space-y-1'>
                     {selectedMap.description
                       .slice(1)
                       .map((description, index) => (
@@ -139,13 +138,13 @@ export default function HomePage(
             </Accordion>
           )}
           {selectedMap.id === 'm14' && (
-            <div
-              className='flex items-center text-lime-800 no-underline hover:underline'
+            <button
+              className='flex items-center gap-1.5 text-sm text-primary-700 transition-colors hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300'
               onClick={handlePeopleSponsorLink}
             >
-              <HelpCircle className='mr-1 h-6 w-6' />
-              <div>{t('which-people-sponsors')}</div>
-            </div>
+              <HelpCircle className='h-5 w-5' />
+              <span>{t('which-people-sponsors')}</span>
+            </button>
           )}
         </div>
         <Comments cardId={selectedMap.id} />

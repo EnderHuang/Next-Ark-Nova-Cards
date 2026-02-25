@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
-import { Rating } from 'react-simple-star-rating';
 import { toast } from 'sonner';
+import { ClientRating as Rating } from '@/components/ui/ClientRating';
 
 import { Textarea } from '@/components/ui/textarea';
 
@@ -108,8 +108,8 @@ const CommentInput = ({
     });
   }, [comment]);
   return (
-    <>
-      <h2 className='mb-4 text-xl font-bold text-zinc-900 lg:text-2xl'>
+    <div className='flex flex-col gap-3'>
+      <h2 className='text-lg font-bold text-foreground lg:text-xl'>
         {t('Welcome to share your idea')}
       </h2>
       <CommentForm
@@ -119,8 +119,7 @@ const CommentInput = ({
         submitting={submitting}
         shouldUpdate={shouldUpdate}
       />
-      {/*<CommentList comments={upToDateCommentsQuery.data || []} />*/}
-    </>
+    </div>
   );
 };
 
@@ -146,7 +145,7 @@ const CommentForm = ({
   return (
     <form
       onSubmit={onSubmit}
-      className='mb-4 flex flex-col items-start gap-2 lg:w-[70%]'
+      className='flex max-w-2xl flex-col items-start gap-3'
     >
       <Rating
         emptyStyle={{ display: 'flex' }}
@@ -156,19 +155,19 @@ const CommentForm = ({
         initialValue={formState.rating}
       />
       <Textarea
-        className='w-full rounded-lg bg-white/80 px-4 py-2'
+        className='w-full rounded-lg bg-card px-4 py-2.5 ring-1 ring-border/60 focus-visible:ring-primary/40'
         placeholder='Comment'
-        rows={4}
+        rows={3}
         name='content'
         value={formState.content}
         onChange={(e) =>
           setFormState((prev) => ({ ...prev, content: e.target.value }))
         }
-      ></Textarea>
+      />
 
       <button
         disabled={submitting}
-        className='group flex w-24 items-center justify-center space-x-2 rounded-full bg-lime-500 px-4 py-2 text-xs font-medium text-zinc-900 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md hover:text-lime-700 focus:outline-none focus-visible:ring-2 dark:from-zinc-900/30 dark:to-zinc-800/80 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 dark:focus-visible:ring-yellow-500/80'
+        className='inline-flex h-9 items-center justify-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:opacity-50'
         type='submit'
       >
         {submitting

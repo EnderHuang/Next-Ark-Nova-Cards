@@ -54,11 +54,11 @@ export function Comments({ cardId, initialComments }: CommentProps) {
     return null;
   }, [user, commentsFromAPI, cardId]);
   return (
-    <section className='px-0 py-2'>
+    <section className='flex flex-col gap-4 py-4'>
       <SignedOut>
         <SignInButton mode='modal' forceRedirectUrl={pathname}>
           <Button type='button'>
-            <UserArrowLeftIcon className='mr-1 h-5 w-5' />
+            <UserArrowLeftIcon className='mr-1.5 h-4 w-4' />
             {t('comment.login_to_comment')}
           </Button>
         </SignInButton>
@@ -67,7 +67,7 @@ export function Comments({ cardId, initialComments }: CommentProps) {
       <SignedIn>
         <CommentInput cardId={cardId} comment={userComment} />
       </SignedIn>
-      <Separator className='mt-2' />
+      <Separator />
       <CommentFeeds cardId={cardId} comments={commentsFromAPI} />
     </section>
   );

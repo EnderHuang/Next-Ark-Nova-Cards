@@ -22,10 +22,10 @@ export default function Page(
     <Layout>
       <Seo templateTitle='Random Quiz' />
 
-      <main>
-        <section className='bg-white/0 px-2 py-4'>
-          Due to the Server pressure, this page is temporary disabled.
-        </section>
+      <main className='px-3 py-8 md:px-6'>
+        <p className='text-center text-muted-foreground'>
+          Due to the Server pressure, this page is temporarily disabled.
+        </p>
       </main>
     </Layout>
   );

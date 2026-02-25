@@ -1,4 +1,4 @@
-import { useQueryClient } from '@tanstack/react-query';
+import { useIsFetching, useQueryClient } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import { fetchCardRatings } from '@/services/card';
@@ -8,6 +8,7 @@ let hasTriggeredGlobally = false;
 
 export const useRatingTrigger = () => {
   const queryClient = useQueryClient();
+  const isFetchingRatings = useIsFetching({ queryKey: ['cardRatings'] });
 
   const triggerRatingFetch = useCallback(async () => {
     if (hasTriggeredGlobally) {
@@ -23,5 +24,9 @@ export const useRatingTrigger = () => {
     });
   }, [queryClient]);
 
-  return { triggerRatingFetch };
+  const isRatingLoading =
+    isFetchingRatings > 0 ||
+    (!hasTriggeredGlobally && !queryClient.getQueryData(['cardRatings']));
+
+  return { triggerRatingFetch, isRatingLoading };
 };

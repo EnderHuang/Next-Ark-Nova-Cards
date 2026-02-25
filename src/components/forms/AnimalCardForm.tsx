@@ -177,6 +177,28 @@ export const AnimalCardForm = ({
         />
         <FormField
           control={form.control}
+          name='latinName'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                {t('diy.latin_name')}
+                <span className='ml-1 text-xs font-normal text-muted-foreground'>
+                  ({t('optional')})
+                </span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  placeholder='e.g. Panthera leo'
+                  {...field}
+                  value={field.value ?? ''}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name='image'
           render={({ field }) => (
             <FormItem>
@@ -295,7 +317,7 @@ export const AnimalCardForm = ({
                   step={1}
                   onValueChange={(numbers) => field.onChange(numbers[0])}
                   className='w-full'
-                  color='zinc'
+                  color='sage'
                 />
               </FormControl>
               {/*<FormDescription>*/}
@@ -403,7 +425,7 @@ export const AnimalCardForm = ({
                         step={1}
                         onValueChange={(numbers) => field.onChange(numbers[0])}
                         className='w-16'
-                        color='zinc'
+                        color='sage'
                       />
                     </FormControl>
                     {/*<FormDescription>*/}
@@ -421,7 +443,7 @@ export const AnimalCardForm = ({
                 <FormControl>
                   <button
                     type='button'
-                    className='border--1 w-10 rounded-lg border border-zinc-200 p-2'
+                    className='border--1 w-10 rounded-lg border border-input p-2'
                     onClick={() => specialEnclosuresRemove(index)}
                   >
                     X
@@ -480,7 +502,7 @@ export const AnimalCardForm = ({
                       </SelectTrigger>
                       <button
                         type='button'
-                        className='border--1 w-10 rounded-lg border border-zinc-200 p-2'
+                        className='border--1 w-10 rounded-lg border border-input p-2'
                         onClick={clearTags}
                       >
                         X
@@ -541,7 +563,7 @@ export const AnimalCardForm = ({
                       </SelectTrigger>
                       <button
                         type='button'
-                        className='border--1 w-10 rounded-lg border border-zinc-200 p-2'
+                        className='border--1 w-10 rounded-lg border border-input p-2'
                         onClick={clearRequirements}
                       >
                         X
@@ -673,7 +695,7 @@ export const AnimalCardForm = ({
                 <FormControl>
                   <button
                     type='button'
-                    className='border--1 w-10 rounded-lg border border-zinc-200 p-2'
+                    className='border--1 w-10 rounded-lg border border-input p-2'
                     onClick={() => {
                       if (hasExistBeforeNew(displayModes, index)) {
                         alert(t('diy.bug'));

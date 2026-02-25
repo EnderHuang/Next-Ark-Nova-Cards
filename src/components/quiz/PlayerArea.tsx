@@ -77,25 +77,27 @@ export const PlayerArea: React.FC<Props> = ({
   }, 2000); // 2000毫秒内最多执行一次
 
   return (
-    <div className='flex w-full flex-col items-center justify-center gap-2 p-2'>
+    <div className='flex w-full flex-col items-center gap-3 p-2'>
       <div className='flex max-w-3xl justify-between gap-2 md:gap-4'>
         {playerData.actionCards.map((actionCard) => (
           <ActionIconCard key={actionCard} action={actionCard} />
         ))}
       </div>
       <Badge
-        className={cn('text-md max-w-3xl bg-zinc-900', {
-          'bg-lime-500': playerData.isMainPlayer,
+        className={cn('text-sm', {
+          'bg-primary text-primary-foreground': playerData.isMainPlayer,
+          'bg-foreground text-background': !playerData.isMainPlayer,
         })}
       >
-        {playerData.isMainPlayer && `You're Player ${playerIndex + 1}`}
-        {!playerData.isMainPlayer && `Player ${playerIndex + 1}`}
+        {playerData.isMainPlayer
+          ? `You're Player ${playerIndex + 1}`
+          : `Player ${playerIndex + 1}`}
       </Badge>
       {(playerData.isMainPlayer || (!playerData.isMainPlayer && pickRes)) && (
         <>
           <div
             className={cn(
-              '-mt-8 grid scale-90 grid-cols-3 justify-items-center gap-x-10 gap-y-4 sm:mt-0 sm:grid-cols-4 md:grid-cols-5 lg:scale-100 lg:grid-cols-5 lg:gap-4 xl:grid-cols-4',
+              'grid scale-90 grid-cols-3 justify-items-center gap-x-10 gap-y-4 sm:grid-cols-4 md:grid-cols-5 lg:scale-100 lg:grid-cols-5 lg:gap-4 xl:grid-cols-4',
               { 'xl:scale-100 xl:grid-cols-5': pickRes },
             )}
           >
@@ -114,14 +116,13 @@ export const PlayerArea: React.FC<Props> = ({
               playerData.cards.map((id) => (
                 <div key={'main_card_div_' + id} className='preview relative'>
                   {playerData.isMainPlayer && (
-                    <div className='absolute left-1/2 top-8 z-10 -translate-x-1/2 transform cursor-pointer duration-300 hover:opacity-0'>
+                    <div className='absolute left-1/2 top-8 z-10 -translate-x-1/2 cursor-pointer transition-opacity duration-300 hover:opacity-0'>
                       <ProgressBar
                         pickNum={pickRes.cardPick.get(id) || 0}
                         totalNum={pickRes.total}
                       />
                     </div>
                   )}
-                  {/* <div>{pickRes.cardPick.get(id)}</div> */}
                   <div className='brightness-[65%]'>
                     <CardWrapper
                       key={'main_card_' + id}
@@ -145,16 +146,16 @@ export const PlayerArea: React.FC<Props> = ({
             ))}
           </div>
           {handList.length === 4 && canSubmit && (
-            <>
+            <div className='flex w-full max-w-md flex-col items-center gap-3'>
               <SignedOut>
                 <SignInButton mode='modal' forceRedirectUrl={pathname}>
                   <Button type='button'>
-                    <UserArrowLeftIcon className='mr-1 h-5 w-5' />
+                    <UserArrowLeftIcon className='mr-1.5 h-4 w-4' />
                     {t('comment.login_to_pick')}
                   </Button>
                 </SignInButton>
                 <Input
-                  className='mt-2 max-w-2xl'
+                  className='w-full'
                   placeholder={t('Enter your name to submit')}
                   onChange={(e) => {
                     setUserName(e.target.value);
@@ -162,7 +163,7 @@ export const PlayerArea: React.FC<Props> = ({
                 />
                 <Button
                   disabled={!userName}
-                  className='text-bold mt-2 w-24 bg-lime-500 text-lg text-white hover:bg-lime-600'
+                  variant='nature'
                   onClick={handleSubmitDebounced}
                 >
                   {t('Submit')}
@@ -171,22 +172,22 @@ export const PlayerArea: React.FC<Props> = ({
 
               <SignedIn>
                 <Textarea
-                  className='w-full rounded-lg bg-white/80 px-4 py-2'
+                  className='w-full rounded-lg bg-card px-4 py-2.5 ring-1 ring-border/60 focus-visible:ring-primary/40'
                   placeholder='Comment'
-                  rows={4}
+                  rows={3}
                   name='content'
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                ></Textarea>
-
+                />
                 <Button
-                  className='text-bold mt-2 w-24 bg-lime-500 text-lg text-white hover:bg-lime-600'
+                  variant='nature'
+                  disabled={isSubmitting}
                   onClick={handleSubmitDebounced}
                 >
                   {t(isSubmitting ? 'Submitting' : 'Submit')}
                 </Button>
               </SignedIn>
-            </>
+            </div>
           )}
         </>
       )}

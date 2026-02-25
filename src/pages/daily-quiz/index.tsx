@@ -26,19 +26,13 @@ export default function Page() {
     <Layout>
       <Seo templateTitle='Daily Quiz' />
 
-      <main>
-        <section className='bg-white/0 px-2 py-4'>
-          {seed && !result && (
-            <Quiz seed={seed} gameConfig={gameConfig} isDailyQuiz={true} />
-          )}
-          {seed && result && (
-            <QuizResult
-              seed={seed}
-              gameConfig={gameConfig}
-              isDailyQuiz={true}
-            />
-          )}
-        </section>
+      <main className='px-3 py-4 md:px-5'>
+        {seed && !result && (
+          <Quiz seed={seed} gameConfig={gameConfig} isDailyQuiz={true} />
+        )}
+        {seed && result && (
+          <QuizResult seed={seed} gameConfig={gameConfig} isDailyQuiz={true} />
+        )}
       </main>
     </Layout>
   );

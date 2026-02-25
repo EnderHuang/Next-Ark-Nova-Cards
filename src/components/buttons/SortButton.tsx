@@ -73,8 +73,8 @@ export const SortButton: React.FC<SortButtonProps> = ({
   return (
     <TextButton
       selected={false}
-      className='hover:text-zinc-500'
-      selectClassName='text-zinc-900 ring-zinc-900/90 ring-2'
+      className='hover:text-muted-foreground'
+      selectClassName='text-foreground ring-foreground/80 ring-2'
       onClick={handleSortOrderChange}
     >
       {getSortIcon(sortOrder)}

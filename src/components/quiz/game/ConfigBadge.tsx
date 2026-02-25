@@ -13,12 +13,9 @@ export const ConfigBadge: React.FC<Props> = ({ source }) => {
   return (
     <Badge
       className={cn(
-        '',
-        { 'bg-blue-600 hover:bg-blue-500': source === CardSource.MARINE_WORLD },
-        { 'bg-zinc-600 hover:bg-zinc-500': source === CardSource.PROMO },
-        {
-          'bg-amber-600 hover:bg-amber-500': source === CardSource.ALTERNATIVE,
-        },
+        source === CardSource.MARINE_WORLD && 'bg-blue-600 hover:bg-blue-500',
+        source === CardSource.PROMO && 'bg-sage-600 hover:bg-sage-500',
+        source === CardSource.ALTERNATIVE && 'bg-amber-600 hover:bg-amber-500',
       )}
     >
       {t(source)}

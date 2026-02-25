@@ -13,9 +13,13 @@ const LocaleSelector: React.FC<{
   const locales = router.locales ?? [currentLanguage];
 
   const languageNames = useMemo(() => {
-    return new Intl.DisplayNames(currentLanguage, {
-      type: 'language',
-    });
+    try {
+      return new Intl.DisplayNames(currentLanguage, {
+        type: 'language',
+      });
+    } catch {
+      return new Intl.DisplayNames('en', { type: 'language' });
+    }
   }, [currentLanguage]);
 
   const [value, setValue] = useState({
@@ -49,7 +53,7 @@ const LocaleSelector: React.FC<{
   return (
     <LocaleSelect.Root value={value.value} onValueChange={languageChanged}>
       <LocaleSelect.Trigger
-        className='md:w-30 flex w-fit justify-start space-x-1 border-none font-bold text-zinc-800 transition-colors hover:text-lime-600 dark:text-zinc-200 dark:hover:text-lime-400'
+        className='md:w-30 flex w-fit justify-start space-x-1 border-none font-bold text-foreground transition-colors hover:text-primary-600 dark:hover:text-primary-400'
         aria-label={t('Placeholder')}
       >
         <LocaleSelect.Value placeholder={t('Placeholder')} />

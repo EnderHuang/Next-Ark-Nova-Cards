@@ -18,7 +18,7 @@ interface RatedAnimalCardProps {
 export const RatedAnimalCard: React.FC<RatedAnimalCardProps> = React.memo(
   ({ cardData, showLink }) => {
     const { animalCard, model, rating, ratingCount } = cardData;
-    const { triggerRatingFetch } = useRatingTrigger();
+    const { triggerRatingFetch, isRatingLoading } = useRatingTrigger();
 
     const handleOpenChange = (open: boolean) => {
       if (open) {
@@ -31,13 +31,14 @@ export const RatedAnimalCard: React.FC<RatedAnimalCardProps> = React.memo(
         <PopoverTrigger>
           <BaseAnimalCard animal={animalCard} />
         </PopoverTrigger>
-        <PopoverContent className='z-20 -mt-56 w-48 bg-zinc-50/95 p-2 md:-mt-64 md:w-52'>
+        <PopoverContent className='z-20 -mt-56 w-48 p-2 md:-mt-64 md:w-52'>
           <AnimalModelCard
             id={animalCard.id}
             model={model}
             showLink={showLink}
             rating={rating}
             ratingCount={ratingCount}
+            isRatingLoading={isRatingLoading}
           />
         </PopoverContent>
       </PopHover>

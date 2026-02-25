@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import LocaleSelector from '@/components/layout/LocaleSelector';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { Container } from '@/components/ui/Container';
 import { Tooltip } from '@/components/ui/Tooltip2';
 import {
@@ -46,6 +47,9 @@ export function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
           >
             <UserInfo />
+            <div className='pointer-events-auto'>
+              <ThemeToggle />
+            </div>
             <div className='pointer-events-auto'>
               <LocaleSelector />
             </div>
@@ -97,7 +101,7 @@ function UserInfo() {
             }}
           />
           {StrategyIcon && (
-            <span className='pointer-events-none absolute -bottom-1 -right-1 flex h-4 w-4 select-none items-center justify-center rounded-full bg-white dark:bg-zinc-900'>
+            <span className='pointer-events-none absolute -bottom-1 -right-1 flex h-4 w-4 select-none items-center justify-center rounded-full bg-white dark:bg-sage-950'>
               <StrategyIcon className='h-3 w-3' />
             </span>
           )}
@@ -116,7 +120,7 @@ function UserInfo() {
                 <Tooltip.Trigger asChild>
                   <button
                     type='button'
-                    className='group h-10 rounded-full bg-gradient-to-b from-zinc-50/50 to-white/90 px-3 text-sm shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:from-zinc-900/50 dark:to-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20'
+                    className='group h-10 rounded-full bg-gradient-to-b from-sage-50/50 to-white/90 px-3 text-sm shadow-lg shadow-sage-800/5 ring-1 ring-sage-900/5 backdrop-blur transition dark:from-sage-900/50 dark:to-sage-950/90 dark:ring-white/10 dark:hover:ring-white/20'
                   >
                     <UserArrowLeftIcon className='h-5 w-5' />
                   </button>

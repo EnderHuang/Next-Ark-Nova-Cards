@@ -19,7 +19,7 @@ interface RatedSponsorCardProps {
 export const RatedSponsorCard: React.FC<RatedSponsorCardProps> = React.memo(
   ({ cardData, showLink }) => {
     const { sponsorCard, rating, ratingCount } = cardData;
-    const { triggerRatingFetch } = useRatingTrigger();
+    const { triggerRatingFetch, isRatingLoading } = useRatingTrigger();
 
     const handleOpenChange = (open: boolean) => {
       if (open) {
@@ -32,13 +32,14 @@ export const RatedSponsorCard: React.FC<RatedSponsorCardProps> = React.memo(
         <PopoverTrigger>
           <BaseSponsorCard sponsor={sponsorCard} />
         </PopoverTrigger>
-        <PopoverContent className='z-20 -mt-56 w-48 bg-zinc-50/95 p-2 md:-mt-64 md:w-52'>
+        <PopoverContent className='z-20 -mt-56 w-48 p-2 md:-mt-64 md:w-52'>
           <SponsorHoverCard
             id={sponsorCard.id}
             showLink={showLink}
             rating={rating}
             ratingCount={ratingCount}
             isPeopleSponsor={sponsorCard.type === SponsorCardType.HUMAN}
+            isRatingLoading={isRatingLoading}
           />
         </PopoverContent>
       </PopHover>

@@ -8,14 +8,13 @@ import { BaseEndGameCard } from '@/components/cards/endgame_cards/BaseEndGameCar
 import { EndGameHoverCard } from '@/components/cards/endgame_cards/EndGameHoverCard';
 import { BaseSponsorCard } from '@/components/cards/sponsor_cards/BaseSponsorCard';
 import { Comments } from '@/components/comments/Comments';
-// make sure to import your TextFilter
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
+import { Skeleton } from '@/components/ui/skeleton';
 import { AnimalCard as AnimalCardType } from '@/types/AnimalCard';
 import { CardType } from '@/types/Card';
 import { EndGameCard as EndGameCardType } from '@/types/EndGameCard';
 import { SponsorCard as SponsorCardType } from '@/types/SponsorCard';
-import { getAllCardIds } from '@/utils/GetAllCardIds';
 import { getAnimalCardModel } from '@/utils/GetAnimalCardModel';
 import { getCardById, getCardTypeById } from '@/utils/GetCardById';
 
@@ -23,10 +22,33 @@ type Props = {
   // Add custom props here
 };
 
+function CardDetailSkeleton() {
+  return (
+    <div className='mb-24 flex flex-col'>
+      <div className='flex flex-col items-center py-24 md:py-36 lg:pb-48 lg:pt-36'>
+        <div className='flex gap-6'>
+          <Skeleton className='h-[280px] w-[200px] rounded-xl' />
+          <div className='flex flex-col gap-2'>
+            <Skeleton className='h-4 w-32' />
+            <Skeleton className='h-4 w-24' />
+            <Skeleton className='h-px w-full' />
+            <Skeleton className='h-4 w-28' />
+            <Skeleton className='h-4 w-20' />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Page(
   _props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
   const router = useRouter();
+
+  if (router.isFallback) {
+    return <CardDetailSkeleton />;
+  }
 
   if (typeof router.query.id !== 'string') return null;
   const card = getCardById(router.query.id);
@@ -81,31 +103,12 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale ?? 'zh-CN', ['common'])),
   },
+  revalidate: 86400,
 });
 
-// export async function getStaticPaths() {
-//   const paths = getAllCardIds();
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
-
-// should add locales to getStaticPaths
-
-// @ts-ignore
-export async function getStaticPaths({ locales }) {
-  const ids = getAllCardIds();
-  const paths = ids
-    .map((id) =>
-      locales.map((locale: string) => ({
-        params: { id: id.toString() },
-        locale, //locale should not be inside `params`
-      })),
-    )
-    .flat(); // to avoid nested array
+export async function getStaticPaths() {
   return {
-    paths,
-    fallback: false,
+    paths: [],
+    fallback: true,
   };
 }

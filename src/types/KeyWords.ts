@@ -36,6 +36,12 @@ export class KeyWord {
     6,
     false,
   );
+  static PACK_PREHISTORIC = new KeyWord(
+    IconName.PACK_PREHISTORIC,
+    'abilities.pack_prehistoric_description',
+    6,
+    false,
+  );
   static JUMPING = new KeyWord(
     IconName.JUMPING,
     'abilities.jumping_description',

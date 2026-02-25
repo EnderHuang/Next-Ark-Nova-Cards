@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 
 import { GameConfigCard } from '@/components/quiz/game/GameConfigCard';
 import { PlayerArea } from '@/components/quiz/PlayerArea';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -53,81 +52,66 @@ export const Quiz: React.FC<Props> = ({
   };
 
   return (
-    <Card className='flex flex-col bg-white/50 p-2'>
-      <CardHeader>
+    <Card className='flex flex-col gap-4 bg-card/60 p-3 backdrop-blur-sm md:p-4'>
+      <CardHeader className='pb-0'>
         <CardTitle>
-          <div className='flex w-full items-center justify-between gap-4'>
-            <div className='flex items-center justify-start gap-1'>
-              <div>{t(header || 'quiz.today')}</div>
-              {/* {gameConfig.mode !== 'default' && (
-                <div>{capitalize(gameConfig.mode)}</div>
-              )} */}
+          <div className='flex w-full items-center justify-between'>
+            <div className='flex items-center gap-3'>
+              <span>{t(header || 'quiz.today')}</span>
               {isDailyQuiz && (
-                <Alert className='w-30 -mt-6 bg-yellow-200/50 py-1 text-xs'>
-                  {/* <Terminal className='h-4 w-4' /> */}
-                  {/* <AlertTitle>Notice</AlertTitle> */}
-                  <AlertDescription>BETA</AlertDescription>
-                </Alert>
+                <span className='rounded-md bg-yellow-200/60 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300'>
+                  BETA
+                </span>
               )}
-              <div className='ml-4'>
-                <HoverCard>
-                  <HoverCardTrigger>
-                    {' '}
-                    <Info className='h-8 w-8' />
-                  </HoverCardTrigger>
-                  <HoverCardContent className='w-full'>
-                    <GameConfigCard gameConfig={gameConfig} />
-                  </HoverCardContent>
-                </HoverCard>
-              </div>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <button className='text-muted-foreground transition-colors hover:text-foreground'>
+                    <Info className='h-5 w-5' />
+                  </button>
+                </HoverCardTrigger>
+                <HoverCardContent className='w-full'>
+                  <GameConfigCard gameConfig={gameConfig} />
+                </HoverCardContent>
+              </HoverCard>
             </div>
-            {/* {!isDailyQuiz && (
-              <div className='flex-1'>
-                <RerollButton />
-              </div>
-            )} */}
-            <Button onClick={handleShare}>
-              {isCopied ? <Check /> : <Share2 />}
+            <Button variant='outline' size='icon' onClick={handleShare}>
+              {isCopied ? (
+                <Check className='h-4 w-4' />
+              ) : (
+                <Share2 className='h-4 w-4' />
+              )}
             </Button>
           </div>
         </CardTitle>
       </CardHeader>
-      <div className='flex flex-col gap-2 xl:flex-row'>
+
+      <div className='flex flex-col gap-4 xl:flex-row'>
         <Carousel
           className='flex w-full flex-col xl:w-3/5'
           opts={{ loop: true, dragFree: true, startIndex: mainPlayerIndex }}
         >
           <div className='flex items-center justify-between px-6'>
             <CarouselPrevious />
-            {/* <div className="flex justify-center items-center">
-
-<Badge className=""></Badge>
-        </div> */}
             <CarouselNext />
           </div>
           <CarouselContent className='mt-2 w-full'>
             {setup.playersData.map((playerData, index) => (
               <CarouselItem key={index}>
-                <div className=''>
-                  <PlayerArea
-                    seed={seed}
-                    playerData={playerData}
-                    playerIndex={index}
-                    canSubmit={playerData.isMainPlayer && isDailyQuiz}
-                  />
-                </div>
+                <PlayerArea
+                  seed={seed}
+                  playerData={playerData}
+                  playerIndex={index}
+                  canSubmit={playerData.isMainPlayer && isDailyQuiz}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>
-        <Separator orientation='vertical' className='mx-2' />
-        <Card className='flex w-full flex-col items-center justify-start gap-4 bg-white/50 p-2'>
-          {/* <CardHeader>
-              <CardTitle>{t('Game Set Up')}</CardTitle>
-            </CardHeader> */}
-          {/* <Separator orientation='horizontal' className='my-2 self-center' /> */}
 
-          <div className='flex w-full max-w-2xl flex-row justify-between xl:w-full'>
+        <Separator orientation='vertical' className='hidden xl:block' />
+
+        <Card className='flex w-full flex-col items-center gap-4 bg-card/50 p-3'>
+          <div className='flex w-full max-w-2xl justify-between xl:w-full'>
             {setup.conservations.map((id, idx) => (
               <CardWrapper
                 key={'q_conservation_' + id}
@@ -139,16 +123,6 @@ export const Quiz: React.FC<Props> = ({
               />
             ))}
           </div>
-
-          {/* <Separator orientation='horizontal' className='my-2 self-center' />
-          <div className='text-lg'>Another player</div>
-          <div className='flex max-w-2xl justify-between gap-2'>
-            {otherPlayerData[0].actionCards.map((actionCard) => (
-              <Badge key={actionCard}>{t(actionCard)}</Badge>
-            ))}
-          </div>
-
-          <MapBoard id={otherPlayerData[0].maps[0]} /> */}
         </Card>
       </div>
     </Card>

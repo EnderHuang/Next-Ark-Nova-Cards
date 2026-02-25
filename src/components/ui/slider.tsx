@@ -21,9 +21,9 @@ const Slider = React.forwardRef<
       colorClasses.bg = 'bg-blue-500';
       colorClasses.border = 'border-blue-500';
       break;
-    case 'zinc':
-      colorClasses.bg = 'bg-zinc-900';
-      colorClasses.border = 'border-zinc-900';
+    case 'sage':
+      colorClasses.bg = 'bg-sage-700';
+      colorClasses.border = 'border-sage-700';
       break;
     default:
       break;
@@ -38,13 +38,13 @@ const Slider = React.forwardRef<
       )}
       {...props}
     >
-      <SliderPrimitive.Track className='relative h-2 w-full grow overflow-hidden rounded-full bg-zinc-500/50 dark:bg-zinc-800'>
+      <SliderPrimitive.Track className='relative h-2 w-full grow overflow-hidden rounded-full bg-sage-500/30 dark:bg-sage-800'>
         <SliderPrimitive.Range
-          className={`absolute h-full ${colorClasses.bg} dark:bg-zinc-50`}
+          className={`absolute h-full ${colorClasses.bg} dark:bg-sage-100`}
         />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb
-        className={`block h-5 w-5 rounded-full border-2 ${colorClasses.border} bg-white ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 `}
+        className={`block h-5 w-5 rounded-full border-2 ${colorClasses.border} bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`}
       />
     </SliderPrimitive.Root>
   );

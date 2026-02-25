@@ -146,53 +146,46 @@ export default function Page(
   return (
     <Layout>
       <Seo templateTitle='Ark Nova Card Maker' />
-      <section className='bg-white/0'>
-        <div className='mt-10 flex min-h-screen flex-col items-center justify-center gap-10 text-start text-black md:flex-row md:items-start md:gap-20'>
-          <div className='scale-125 py-8 md:mt-2 xl:mr-5 xl:mt-12 xl:scale-150'>
-            <div ref={downloadRef} className=''>
-              <BaseAnimalCard animal={valuesToAnimalCard(diyAnimalCard)} />
-            </div>
+      <div className='flex flex-col items-center gap-8 px-3 py-8 md:flex-row md:items-start md:justify-center md:gap-12 md:px-6 lg:gap-16'>
+        <div className='sticky top-24 scale-125 py-4 md:mt-4 xl:scale-150'>
+          <div ref={downloadRef}>
+            <BaseAnimalCard animal={valuesToAnimalCard(diyAnimalCard)} />
           </div>
-          <Card className='w-[370px] bg-white/75'>
-            <CardHeader>
-              <CardTitle>{t('diy.card_maker')}</CardTitle>
-              <CardDescription>
-                {t('diy.create_your_own_animal_card')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <AnimalCardForm
-                defaultValues={diyAnimalCard}
-                onValuesChange={debouncedHandleValuesChange}
-                isResetting={isResetting}
-              />
-            </CardContent>
-            <CardFooter className='flex flex-col justify-start gap-4'>
-              <div className='grid w-full max-w-sm items-center gap-1.5'>
-                <Label htmlFor='animal-json-import'>
-                  {t('diy.import_json')}
-                </Label>
-                <Input
-                  id='animal-json-import'
-                  type='file'
-                  value=''
-                  className=''
-                  onChange={handleJsonImport}
-                />
-              </div>
-              {/*<Button variant="outline">*/}
-              {/*  {t('diy.import_json')}*/}
-              {/*</Button>*/}
-              <Button
-                className='w-36 bg-lime-500 hover:bg-lime-400'
-                onClick={handleDownloadImage}
-              >
-                {t('diy.Download')}
-              </Button>
-            </CardFooter>
-          </Card>
         </div>
-      </section>
+        <Card className='w-full max-w-[400px] bg-card/80 backdrop-blur-sm'>
+          <CardHeader>
+            <CardTitle>{t('diy.card_maker')}</CardTitle>
+            <CardDescription>
+              {t('diy.create_your_own_animal_card')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AnimalCardForm
+              defaultValues={diyAnimalCard}
+              onValuesChange={debouncedHandleValuesChange}
+              isResetting={isResetting}
+            />
+          </CardContent>
+          <CardFooter className='flex flex-col items-start gap-4'>
+            <div className='grid w-full items-center gap-1.5'>
+              <Label htmlFor='animal-json-import'>{t('diy.import_json')}</Label>
+              <Input
+                id='animal-json-import'
+                type='file'
+                value=''
+                onChange={handleJsonImport}
+              />
+            </div>
+            <Button
+              variant='nature'
+              className='w-full sm:w-auto'
+              onClick={handleDownloadImage}
+            >
+              {t('diy.Download')}
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
     </Layout>
   );
 }

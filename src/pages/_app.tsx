@@ -2,6 +2,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { AppProps } from 'next/app';
 import Script from 'next/script';
 import { appWithTranslation } from 'next-i18next';
+import { ThemeProvider } from 'next-themes';
 
 import '@/styles/globals.css';
 import '@/styles/arknova.css';
@@ -34,9 +35,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         `,
         }}
       />
-      <ClerkProvider {...pageProps}>
-        <Component {...pageProps} />
-      </ClerkProvider>
+      <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
+        <ClerkProvider {...pageProps}>
+          <Component {...pageProps} />
+        </ClerkProvider>
+      </ThemeProvider>
     </>
   );
 }

@@ -92,15 +92,18 @@ export default function HomePage(
 
       {includeFanMade && <FanModeBanner />}
 
-      <main>
-        <div className='flex flex-col space-y-4 px-2 py-2 md:px-4'>
-          <div className='flex flex-col md:flex-row'>
+      <main className='flex flex-col gap-6'>
+        <div className='flex flex-col gap-4 px-3 py-3 md:px-6'>
+          <div className='flex flex-col gap-4 md:flex-row md:items-center'>
             <CardTypeFilter
               cardTypes={[CardType.ANIMAL_CARD, CardType.SPONSOR_CARD]}
               onFilterChange={setSelectedCardTypes}
               reset={reset}
             />
-            <Separator orientation='vertical' className='mr-5 bg-zinc-900' />
+            <Separator
+              orientation='vertical'
+              className='hidden bg-border md:block'
+            />
             <CardSourceFilter
               onFilterChange={setSelectedCardSources}
               reset={reset}
@@ -116,21 +119,21 @@ export default function HomePage(
             onFilterChange={setSelectedRequirements}
             reset={reset}
           />
-          <div className='flex flex-row space-x-4'>
+          <div className='flex items-center gap-3'>
             <TextFilter onTextChange={setTextFilter} reset={reset} />
-            <div
+            <button
               onClick={resetAll}
-              className='group flex w-auto items-center justify-between space-x-2 rounded-2xl rounded-md bg-zinc-600 px-4 py-2 text-lg font-medium text-zinc-100 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md hover:bg-zinc-500 hover:text-lime-400 focus:outline-none focus-visible:ring-2 dark:from-zinc-900/30 dark:to-zinc-800/80 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 dark:focus-visible:ring-yellow-500/80'
+              className='flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sage-700 text-white transition-colors hover:bg-sage-600 dark:bg-sage-800 dark:hover:bg-sage-700'
             >
-              <FiRotateCcw className='' />
-            </div>
+              <FiRotateCcw className='h-4 w-4' />
+            </button>
           </div>
-          <div className='flex flex-row space-x-4'>
+          <div className='flex flex-wrap items-center gap-2 md:gap-3'>
             <SortButton sortOrder={sortOrder} setSortOrder={setSortOrder} />
             <SizeFilter onFilterChange={setSize} reset={reset} />
             <StrengthFilter onFilterChange={setStrength} reset={reset} />
           </div>
-          <div className='flex flex-row space-x-4'>
+          <div className='flex flex-wrap items-center gap-2 md:gap-3'>
             <CardOdometer
               value={animalCardsCount}
               name={t('Animal')}
@@ -143,7 +146,6 @@ export default function HomePage(
             />
           </div>
         </div>
-        <div className='mb-2 md:mb-8'></div>
         <div className='relative'>
           {(selectedCardTypes.length === 0 ||
             selectedCardTypes.includes(CardType.ANIMAL_CARD)) && (

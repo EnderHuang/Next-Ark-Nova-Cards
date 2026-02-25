@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
+import { Button } from '@/components/ui/button';
 
 import { CardSource } from '@/types/CardSource';
 
@@ -59,15 +60,10 @@ export default function Page(
         description='Sharpen your gaming skills and deepen your understanding with Daily Quiz! Dive into fresh challenges every day, answer questions, and compare your stats with fellow quiz enthusiasts. Perfect for gamers looking to level up their strategy and knowledge in a fun, engaging way.'
       />
 
-      <main>
-        <section className='bg-white/0'>
-          <button
-            onClick={handleSubmit}
-            className='rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600'
-          >
-            Submit Data
-          </button>
-        </section>
+      <main className='flex flex-col items-center px-3 py-8 md:px-6'>
+        <Button onClick={handleSubmit} variant='nature' size='lg'>
+          Submit Data
+        </Button>
       </main>
     </Layout>
   );

@@ -347,6 +347,10 @@
   --arkNovaZooCardScale: 1;
 }
 
+.dark .ark-card {
+  color: #333;
+}
+
 .ark-card.zoo-card {
   height: calc(var(--arkNovaZooCardScale) * 522px);
   width: calc(var(--arkNovaZooCardScale) * 375px);

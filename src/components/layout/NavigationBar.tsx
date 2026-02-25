@@ -22,14 +22,14 @@ function NavItem({
         className={cn(
           'relative block whitespace-nowrap px-3 py-2 transition',
           isActive
-            ? 'text-lime-600 dark:text-lime-400'
-            : 'hover:text-lime-600 dark:hover:text-lime-400',
+            ? 'text-primary-700 dark:text-primary-400'
+            : 'hover:text-primary-600 dark:hover:text-primary-400',
         )}
       >
         {children}
         {isActive && (
           <motion.span
-            className='absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-lime-700/0 via-lime-700/70 to-lime-700/0 dark:from-lime-400/0 dark:via-lime-400/40 dark:to-lime-400/0'
+            className='absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-primary/0 via-primary/70 to-primary/0'
             layoutId='active-nav-item'
           />
         )}
@@ -63,22 +63,21 @@ function Desktop({
       onMouseMove={handleMouseMove}
       className={cn(
         'group relative',
-        'rounded-full bg-gradient-to-b from-zinc-50/70 to-white/90',
-        'shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md',
-        'dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10',
+        'rounded-full bg-gradient-to-b from-sage-50/70 to-white/90',
+        'shadow-lg shadow-sage-800/5 ring-1 ring-sage-900/5 backdrop-blur-md',
+        'dark:from-sage-900/70 dark:to-sage-950/90 dark:ring-sage-100/10',
         '[--spotlight-color:rgb(236_252_203_/_0.6)] dark:[--spotlight-color:rgb(217_249_157_/_0.07)]',
         className,
       )}
       {...props}
     >
-      {/* Spotlight overlay */}
       <motion.div
         className='pointer-events-none absolute -inset-px rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100'
         style={{ background }}
         aria-hidden='true'
       />
 
-      <ul className='flex bg-transparent px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200 '>
+      <ul className='flex bg-transparent px-3 text-sm font-medium text-foreground'>
         {navigationItems.map(({ href, text }) => (
           <NavItem key={href} href={href}>
             {t(text)}
@@ -109,13 +108,12 @@ function Mobile(props: PopoverProps<'div'>) {
   const { t } = useTranslation('common');
   return (
     <Popover {...props}>
-      <Popover.Button className='group flex w-28 items-center justify-between rounded-full bg-gradient-to-b from-zinc-50/20 to-white/80 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md focus:outline-none focus-visible:ring-2 dark:from-zinc-900/30 dark:to-zinc-800/80 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 dark:focus-visible:ring-yellow-500/80'>
+      <Popover.Button className='group flex w-28 items-center justify-between rounded-full bg-gradient-to-b from-sage-50/20 to-white/80 px-4 py-2 text-sm font-medium text-foreground shadow-lg shadow-sage-800/5 ring-1 ring-sage-900/5 backdrop-blur-md focus:outline-none focus-visible:ring-2 dark:from-sage-900/30 dark:to-sage-950/80 dark:ring-white/10 dark:hover:ring-white/20 dark:focus-visible:ring-primary/80'>
         {t('nav.go')}
-        {/* Chevron */}
         <svg
           viewBox='0 0 8 6'
           aria-hidden='true'
-          className='ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400'
+          className='ml-3 h-auto w-2 stroke-sage-500 group-hover:stroke-sage-700 dark:group-hover:stroke-sage-400'
         >
           <path
             d='M1.75 1.75 4 4.25l2.25-2.5'
@@ -136,7 +134,7 @@ function Mobile(props: PopoverProps<'div'>) {
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <Popover.Overlay className='fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur dark:bg-black/80' />
+          <Popover.Overlay className='fixed inset-0 z-50 bg-sage-800/40 backdrop-blur dark:bg-black/80' />
         </Transition.Child>
         <Transition.Child
           as={React.Fragment}
@@ -149,14 +147,14 @@ function Mobile(props: PopoverProps<'div'>) {
         >
           <Popover.Panel
             focus
-            className='fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-gradient-to-b from-zinc-100/75 to-white p-8 ring-1 ring-zinc-900/5 dark:from-zinc-900/50 dark:to-zinc-900 dark:ring-zinc-800'
+            className='fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-gradient-to-b from-sage-100/75 to-white p-8 ring-1 ring-sage-900/5 dark:from-sage-900/50 dark:to-sage-950 dark:ring-sage-800'
           >
             <div className='flex flex-row-reverse items-center justify-between'>
               <Popover.Button aria-label='关闭菜单' className='-m-1 p-1'>
                 <svg
                   viewBox='0 0 24 24'
                   aria-hidden='true'
-                  className='h-6 w-6 text-zinc-500 dark:text-zinc-400'
+                  className='h-6 w-6 text-sage-500 dark:text-sage-400'
                 >
                   <path
                     d='m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5'
@@ -168,12 +166,12 @@ function Mobile(props: PopoverProps<'div'>) {
                   />
                 </svg>
               </Popover.Button>
-              <h2 className='text-sm font-medium text-zinc-600 dark:text-zinc-400'>
+              <h2 className='text-sm font-medium text-sage-600 dark:text-sage-400'>
                 {t('nav.go')}
               </h2>
             </div>
             <nav className='mt-6'>
-              <ul className='-my-2 divide-y divide-zinc-500/20 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300'>
+              <ul className='-my-2 divide-y divide-sage-500/20 text-base text-foreground dark:divide-sage-100/5'>
                 {navigationItems.map(({ href, text }) => (
                   <MobileNavItem key={href} href={href}>
                     {t(text)}

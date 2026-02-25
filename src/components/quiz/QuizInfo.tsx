@@ -27,34 +27,31 @@ export const QuizInfo: React.FC<IQuizData & { idx: number; day: number }> = (
 
   return (
     <a href={`/daily-quiz?seed=${props.seed}`} className='block'>
-      <Card className='flex h-12 items-center justify-between px-4 py-2'>
-        <div className='flex items-center justify-start gap-2'>
-          <div className='font-bold'>
-            {'Day ' +
-              (dayjs(props.createdat || '').diff(dayjs('2024-07-02'), 'day') +
-                1)}
-            <div className='text-xs font-normal text-zinc-400'>
+      <Card className='flex items-center justify-between px-4 py-3 transition-colors hover:bg-accent/50'>
+        <div className='flex items-center gap-3'>
+          <div>
+            <div className='font-bold leading-tight'>
+              {'Day ' +
+                (dayjs(props.createdat || '').diff(dayjs('2024-07-02'), 'day') +
+                  1)}
+            </div>
+            <div className='text-xs text-muted-foreground'>
               {dayjs(props.createdat).format('DD/MM/YYYY')}
             </div>
           </div>
 
-          <div>
-            {props.gameconfig?.mode !== 'default' && (
-              <>
-                <HoverCard>
-                  <HoverCardTrigger>
-                    {' '}
-                    <Badge>{t(props.gameconfig?.mode)}</Badge>
-                  </HoverCardTrigger>
-                  <HoverCardContent className='w-full'>
-                    <GameConfigCard gameConfig={props.gameconfig} />
-                  </HoverCardContent>
-                </HoverCard>
-              </>
-            )}
-          </div>
+          {props.gameconfig?.mode !== 'default' && (
+            <HoverCard>
+              <HoverCardTrigger>
+                <Badge>{t(props.gameconfig?.mode)}</Badge>
+              </HoverCardTrigger>
+              <HoverCardContent className='w-full'>
+                <GameConfigCard gameConfig={props.gameconfig} />
+              </HoverCardContent>
+            </HoverCard>
+          )}
         </div>
-        <div className='flex justify-end gap-4'>
+        <div className='flex items-center gap-3'>
           {props.idx !== 0 && (
             <a
               href={`/daily-quiz?seed=${props.seed}&result=true`}
@@ -65,9 +62,9 @@ export const QuizInfo: React.FC<IQuizData & { idx: number; day: number }> = (
               </Badge>
             </a>
           )}
-          <div className='w-28 text-start font-semibold'>
+          <span className='text-sm font-semibold text-muted-foreground'>
             {t('quiz.total') + ': ' + props.total}
-          </div>
+          </span>
         </div>
       </Card>
     </a>

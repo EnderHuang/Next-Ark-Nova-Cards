@@ -104,69 +104,69 @@ export const QuizResult: React.FC<Props> = ({
   };
 
   return (
-    <Card className='flex flex-col bg-white/50 p-2'>
-      <CardHeader>
+    <Card className='flex flex-col gap-4 bg-card/60 p-3 backdrop-blur-sm md:p-4'>
+      <CardHeader className='pb-0'>
         <CardTitle>
-          <div className='flex w-full items-center justify-between gap-4'>
-            <div>{t('quiz.result')}</div>
-            {/* {!isDailyQuiz && (
-              <div className='flex-1'>
-                <RerollButton />
-              </div>
-            )} */}
-            <Button onClick={handleShare}>
-              {isCopied ? <Check /> : <Share2 />}
+          <div className='flex w-full items-center justify-between'>
+            <span>{t('quiz.result')}</span>
+            <Button variant='outline' size='icon' onClick={handleShare}>
+              {isCopied ? (
+                <Check className='h-4 w-4' />
+              ) : (
+                <Share2 className='h-4 w-4' />
+              )}
             </Button>
           </div>
         </CardTitle>
       </CardHeader>
-      <div className='flex flex-col gap-2'>
+
+      <div className='flex flex-col gap-4'>
         <Carousel
-          className='flex w-full flex-col '
+          className='flex w-full flex-col'
           opts={{ loop: true, dragFree: true, startIndex: mainPlayerIndex }}
         >
           <div className='flex items-center justify-between px-6'>
             <CarouselPrevious />
             <CarouselNext />
           </div>
-          <CarouselContent className='mt-2 w-full '>
+          <CarouselContent className='mt-2 w-full'>
             {setup.playersData.map((playerData, index) => (
               <CarouselItem key={index}>
-                <div className=''>
-                  <PlayerArea
-                    seed={seed}
-                    playerData={playerData}
-                    playerIndex={index}
-                    canSubmit={playerData.isMainPlayer && isDailyQuiz}
-                    pickRes={cardPickRes || undefined}
-                  />
-                </div>
+                <PlayerArea
+                  seed={seed}
+                  playerData={playerData}
+                  playerIndex={index}
+                  canSubmit={playerData.isMainPlayer && isDailyQuiz}
+                  pickRes={cardPickRes || undefined}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>
-        <Separator orientation='vertical' className='mx-2' />
-        <Card className='flex w-full flex-col items-center justify-start gap-4 bg-white/50 p-2'>
-          <div className='mt-2 grid w-full grid-cols-3 content-center justify-center justify-items-center gap-1 lg:grid-cols-6 xl:w-full'>
-            {setup.display?.map((id, idx) => (
-              <div
-                key={'q_display_' + id}
-                className='preview relative w-min scale-90 rounded bg-amber-500/50 p-2 xl:scale-100'
-              >
-                <div className='absolute -top-2 left-1/2 z-10 flex h-6 w-5 -translate-x-1/2 items-center justify-center rounded bg-amber-700 font-bold text-white shadow-sm'>
-                  {idx + 1}
-                </div>
-                <CardWrapper
-                  id={id}
-                  index={(idx + 1) as TProjectSlotPosition}
-                  canSelect={false}
-                  disable={false}
-                />
-              </div>
-            ))}
-          </div>
 
-          <div className='flex w-full flex-row justify-center gap-8 xl:w-full'>
+        <Card className='flex w-full flex-col items-center gap-4 bg-card/50 p-3'>
+          {setup.display && setup.display.length > 0 && (
+            <div className='grid w-full grid-cols-3 justify-items-center gap-2 lg:grid-cols-6'>
+              {setup.display.map((id, idx) => (
+                <div
+                  key={'q_display_' + id}
+                  className='preview relative w-min scale-90 rounded-lg bg-amber-500/40 p-2 xl:scale-100'
+                >
+                  <div className='absolute -top-2 left-1/2 z-10 flex h-5 w-5 -translate-x-1/2 items-center justify-center rounded-md bg-amber-700 text-xs font-bold text-white shadow-sm'>
+                    {idx + 1}
+                  </div>
+                  <CardWrapper
+                    id={id}
+                    index={(idx + 1) as TProjectSlotPosition}
+                    canSelect={false}
+                    disable={false}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className='flex w-full justify-center gap-6'>
             {setup.conservations.map((id, idx) => (
               <CardWrapper
                 key={'q_conservation_' + id}
@@ -179,35 +179,12 @@ export const QuizResult: React.FC<Props> = ({
             ))}
           </div>
 
-          <Separator
-            orientation='horizontal'
-            className='text-md my-2 self-center'
-          />
+          <Separator />
+
           <Comments
             seed={router.query.seed as string}
             initialComments={comments}
           />
-          <Separator
-            orientation='horizontal'
-            className='text-md my-2 self-center'
-          />
-          {/* <div className='flex flex-col items-start justify-center gap-1'>
-            <div className='text-lg font-bold'>Want to play more?</div>
-            <div className=''>You can wait for next day challenge, or</div>
-            <div className='flex items-center justify-start gap-2'>
-              try random seed for practice (can not submit)
-              <RerollButton />
-            </div>
-          </div> */}
-          {/* <Separator orientation='horizontal' className='my-2 self-center' />
-          <div className='text-lg'>Another player</div>
-          <div className='flex max-w-2xl justify-between gap-2'>
-            {otherPlayerData[0].actionCards.map((actionCard) => (
-              <Badge key={actionCard}>{t(actionCard)}</Badge>
-            ))}
-          </div>
-
-          <MapBoard id={otherPlayerData[0].maps[0]} /> */}
         </Card>
       </div>
     </Card>

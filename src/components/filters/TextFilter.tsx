@@ -43,16 +43,14 @@ export const TextFilter: React.FC<TTextFilterProps> = ({
   }, [reset]);
 
   return (
-    <div className='group relative flex w-full rounded-xl bg-gradient-to-b from-zinc-50/50 to-white/70 p-2 pb-6 shadow-xl shadow-zinc-500/10 ring-2 ring-zinc-200/30 dark:from-zinc-900/70 dark:to-zinc-800/60 dark:shadow-zinc-700/10 dark:ring-zinc-700/30 md:p-4 lg:w-1/2'>
-      <div className='z-10 ml-2 flex-1 shrink-0 md:ml-4'>
-        <input
-          className='block w-full shrink-0 resize-none border-0 bg-transparent p-0 text-sm leading-6 text-zinc-800 placeholder-zinc-400 outline-none focus:outline-none focus:ring-0 dark:text-zinc-200 dark:placeholder-zinc-500'
-          value={text}
-          placeholder={t('Filter text') + '...'}
-          onChange={(event) => handleChange(event.target.value)}
-          autoFocus
-        />
-      </div>
+    <div className='group relative flex w-full rounded-xl bg-gradient-to-b from-sage-50/50 to-white/70 px-4 py-2.5 shadow-lg shadow-sage-500/10 ring-1 ring-sage-200/40 dark:from-sage-900/70 dark:to-sage-950/60 dark:shadow-sage-700/10 dark:ring-sage-700/30 lg:w-1/2'>
+      <input
+        className='block w-full border-0 bg-transparent p-0 text-sm leading-6 text-foreground placeholder-muted-foreground outline-none focus:outline-none focus:ring-0'
+        value={text}
+        placeholder={t('Filter text') + '...'}
+        onChange={(event) => handleChange(event.target.value)}
+        autoFocus
+      />
     </div>
   );
 };

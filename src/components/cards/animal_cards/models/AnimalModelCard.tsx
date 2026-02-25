@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { Rating } from 'react-simple-star-rating';
 import AppealIcon from '@/components/icons/tokens/AppealIcon';
 import ConservationIcon from '@/components/icons/tokens/ConservationIcon';
 import MoneyIcon from '@/components/icons/tokens/MoneyIcon';
 import ReputationIcon from '@/components/icons/tokens/ReputationIcon';
+import { ClientRating as Rating } from '@/components/ui/ClientRating';
 import { Separator } from '@/components/ui/separator';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
 import { AnimalCardModel } from '@/types/AnimalCardModel';
@@ -18,6 +19,7 @@ interface ModelCardProps {
   rating?: number | null;
   ratingCount?: number | null;
   readonly?: boolean;
+  isRatingLoading?: boolean;
 }
 
 export const AnimalModelCard: React.FC<ModelCardProps> = ({
@@ -27,129 +29,130 @@ export const AnimalModelCard: React.FC<ModelCardProps> = ({
   rating,
   ratingCount,
   readonly,
+  isRatingLoading,
 }) => {
   // const router = useRouter();
   const { t } = useTranslation('common');
 
   return (
-    <div className='flex flex-col text-xs'>
-      <div className='text-bold'>
-        {t('Animal Value')}:&nbsp;
+    <div className='flex flex-col gap-1 text-xs'>
+      <div className='font-bold'>
+        {t('Animal Value')}
+        <span className='mx-1 text-muted-foreground'>·</span>
         <span
           className={cn(
-            'text-bold',
-            { 'text-lime-600': model.cost >= 0 },
-            { 'text-red-600': model.diff < 0 },
+            'font-bold',
+            model.diff >= 0 ? 'text-lime-600' : 'text-red-600',
           )}
         >
           {model.diff}
-          {/*<MoneyIcon value={model.diff} />*/}
         </span>
       </div>
       {model.diff !== model.diffWithSpecialEnclosure && (
-        <div className='text-bold'>
-          {t('With SE')}:&nbsp;
+        <div className='font-bold'>
+          {t('With SE')}
+          <span className='mx-1 text-muted-foreground'>·</span>
           <span
             className={cn(
-              'text-bold',
-              { 'text-lime-600': model.diffWithSpecialEnclosure >= 0 },
-              { 'text-red-600': model.diffWithSpecialEnclosure < 0 },
+              'font-bold',
+              model.diffWithSpecialEnclosure >= 0
+                ? 'text-lime-600'
+                : 'text-red-600',
             )}
           >
             {model.diffWithSpecialEnclosure}
-            {/*<MoneyIcon value={model.diff} />*/}
           </span>
         </div>
       )}
-      {rating && (
-        <div className='flex flex-row gap-1'>
+      {rating ? (
+        <div className='flex items-center gap-1.5'>
           <Rating
             emptyStyle={{ display: 'flex' }}
             fillStyle={{ display: '-webkit-inline-box' }}
-            className='-mt-1'
             readonly={readonly ?? true}
             initialValue={rating}
             allowFraction={true}
             size={16}
           />
-          {rating ? `${rating.toFixed(1)} (${ratingCount} ${t('users')})` : ''}
+          <span className='text-muted-foreground'>
+            {rating.toFixed(1)} ({ratingCount} {t('users')})
+          </span>
         </div>
-      )}
-      <Separator className='my-2 bg-zinc-300' />
-
-      {model.appeal > 0 && (
-        <div className='item-center flex'>
-          <div className='w-6'>
-            <AppealIcon value='' />
+      ) : (
+        isRatingLoading && (
+          <div className='flex items-center gap-1.5'>
+            <Skeleton className='h-4 w-20' />
+            <Skeleton className='h-3 w-16' />
           </div>
-          :&nbsp;
-          <div className='flex justify-end'>
+        )
+      )}
+      <Separator className='my-1.5' />
+
+      <div className='flex flex-col gap-0.5'>
+        {model.appeal > 0 && (
+          <div className='flex items-center gap-1.5'>
+            <div className='w-5 shrink-0'>
+              <AppealIcon value='' />
+            </div>
             <MoneyIcon value={model.appeal} />
           </div>
-        </div>
-      )}
-      {model.reputation > 0 && (
-        <div className='item-center flex'>
-          <div className='w-6'>
-            <ReputationIcon value='' />
+        )}
+        {model.reputation > 0 && (
+          <div className='flex items-center gap-1.5'>
+            <div className='w-5 shrink-0'>
+              <ReputationIcon value='' />
+            </div>
+            <MoneyIcon value={model.reputation} />
           </div>
-          :&nbsp;
-          <MoneyIcon value={model.reputation} />
-        </div>
-      )}
-      {model.conservationPoint > 0 && (
-        <div className='item-center flex'>
-          <div className='w-6'>
-            <ConservationIcon value='' />
+        )}
+        {model.conservationPoint > 0 && (
+          <div className='flex items-center gap-1.5'>
+            <div className='w-5 shrink-0'>
+              <ConservationIcon value='' />
+            </div>
+            <MoneyIcon value={model.conservationPoint} />
           </div>
-          :&nbsp;
-          <MoneyIcon value={model.conservationPoint} />
-        </div>
-      )}
+        )}
 
-      {model.abilities &&
-        model.abilities.map((abilityModel, index) => {
-          if (abilityModel.value > 0) {
-            const ability = abilityModel.ability;
+        {model.abilities &&
+          model.abilities.map((abilityModel, index) => {
+            if (abilityModel.value > 0) {
+              const ability = abilityModel.ability;
 
-            // FIXME: it's a temporary solution, need to be refactored
-            const keyWord =
-              ability.value.toString().length > 1
-                ? t(ability.keyword.name) + ':' + t(ability.value.toString())
-                : ability.value.toString().length === 1
-                  ? t(ability.keyword.name) + ' ' + t(ability.value.toString())
-                  : t(ability.keyword.name);
-            return (
-              <div key={index} className='item-center flex'>
-                {keyWord}
-                <div>:&nbsp;</div>
-
-                <div className=''>
+              // FIXME: it's a temporary solution, need to be refactored
+              const keyWord =
+                ability.value.toString().length > 1
+                  ? t(ability.keyword.name) + ':' + t(ability.value.toString())
+                  : ability.value.toString().length === 1
+                    ? t(ability.keyword.name) +
+                      ' ' +
+                      t(ability.value.toString())
+                    : t(ability.keyword.name);
+              return (
+                <div key={index} className='flex items-center gap-1.5'>
+                  <span className='text-muted-foreground'>{keyWord}</span>
                   <MoneyIcon value={abilityModel.value} />
                 </div>
-              </div>
-            );
-          }
-        })}
-      <Separator className='my-2 bg-zinc-300' />
-      <div className='item-center flex'>
-        {t('Cost')}
-        <div>:&nbsp;</div>
+              );
+            }
+          })}
+      </div>
 
-        <div className=''>
-          <MoneyIcon value={'-' + model.cost} color='text-red-400' />
-        </div>
+      <Separator className='my-1.5' />
+      <div className='flex items-center gap-1.5'>
+        <span className='text-muted-foreground'>{t('Cost')}</span>
+        <MoneyIcon value={'-' + model.cost} color='text-red-400' />
       </div>
       {showLink && (
         <div className='flex flex-col items-center'>
-          <Separator className='my-2 bg-zinc-300' />
+          <Separator className='my-1.5' />
           <Link
             href={'/card/' + id}
             rel='card-detail'
             target='_blank'
-            className='w-15 group flex items-center justify-center space-x-2 rounded-full bg-gradient-to-b from-zinc-50/20 to-white/80 px-4 py-2 text-xs font-medium text-lime-600 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md hover:text-lime-700 focus:outline-none focus-visible:ring-2 dark:from-zinc-900/30 dark:to-zinc-800/80 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 dark:focus-visible:ring-yellow-500/80'
+            className='inline-flex items-center justify-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/20 dark:text-primary-400 dark:hover:bg-primary/15'
           >
-            {t('View More')}{' '}
+            {t('View More')}
           </Link>
         </div>
       )}

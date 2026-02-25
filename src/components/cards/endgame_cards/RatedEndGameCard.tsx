@@ -20,31 +20,29 @@ export const RatedEndGameCard: React.FC<RatedEndGameCardProps> = ({
   showLink,
 }) => {
   const { endGameCard, rating, ratingCount } = cardData;
-  const { triggerRatingFetch } = useRatingTrigger();
+  const { triggerRatingFetch, isRatingLoading } = useRatingTrigger();
 
   const handleOpenChange = (open: boolean) => {
     if (open) {
-      // 当popover打开时，触发评分数据获取
       triggerRatingFetch();
     }
   };
 
   return (
-    <>
-      <PopHover onOpenChange={handleOpenChange}>
-        <PopoverTrigger>
-          <BaseEndGameCard card={endGameCard} />
-        </PopoverTrigger>
-        <PopoverContent className='z-20 -mt-56 w-48 bg-zinc-50/95 p-2 md:-mt-72 md:w-52'>
-          <EndGameHoverCard
-            id={endGameCard.id}
-            card={endGameCard}
-            showLink={showLink}
-            rating={rating}
-            ratingCount={ratingCount}
-          />
-        </PopoverContent>
-      </PopHover>
-    </>
+    <PopHover onOpenChange={handleOpenChange}>
+      <PopoverTrigger>
+        <BaseEndGameCard card={endGameCard} />
+      </PopoverTrigger>
+      <PopoverContent className='z-20 -mt-56 w-48 p-2 md:-mt-72 md:w-52'>
+        <EndGameHoverCard
+          id={endGameCard.id}
+          card={endGameCard}
+          showLink={showLink}
+          rating={rating}
+          ratingCount={ratingCount}
+          isRatingLoading={isRatingLoading}
+        />
+      </PopoverContent>
+    </PopHover>
   );
 };

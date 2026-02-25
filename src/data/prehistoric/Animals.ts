@@ -188,7 +188,7 @@ const baseAnimals: Omit<AnimalCard, 'id' | 'image' | 'directUseImage'>[] = [
     electrical: 1,
     tags: [AnimalTag.Prehistoric],
     requirements: [AnimalTag.Herbivore],
-    abilities: [new Ability(KeyWord.PACK, AnimalTag.Prehistoric)],
+    abilities: [new Ability(KeyWord.PACK_PREHISTORIC)],
     appeal: 4,
     source: CardSource.FAN_MADE,
   },

@@ -116,4 +116,7 @@ export enum IconName {
   KIOSK_PAVILION_PAIR = 'Kiosk and Pavilion Pair',
   CONDITION = 'Condition',
   ICONS_COMPARE_WITH_PLAYER = 'Icons Compare with Player',
+
+  // Fan
+  PACK_PREHISTORIC = 'Pack: Prehistoric',
 }
