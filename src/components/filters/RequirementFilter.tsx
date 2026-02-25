@@ -1,7 +1,7 @@
-import { motion, Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
-import { BiChevronDown } from 'react-icons/bi';
 import TagButton from '@/components/buttons/TagButton';
 import { cn } from '@/lib/utils';
 
@@ -54,19 +54,19 @@ export const RequirementFilter: React.FC<RequirementFilterProps> = ({
   }, [reset]);
 
   return (
-    <motion.nav
+    <m.nav
       initial={false}
       animate={isOpen ? 'open' : 'closed'}
       className='menu'
       style={{ overflow: 'hidden' }} // 这里添加 overflow: hidden
     >
-      <motion.button
+      <m.button
         className='group mt-1 flex w-40 items-center justify-between gap-2 rounded-full bg-gradient-to-b from-sage-50/20 to-white/80 px-4 py-2 text-sm font-medium text-foreground shadow-lg shadow-sage-800/5 ring-1 ring-sage-900/5 backdrop-blur-md dark:from-sage-900/30 dark:to-sage-950/80 dark:ring-white/10 dark:hover:ring-white/20'
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
       >
         {t('Requirements')}
-        <motion.div
+        <m.div
           variants={{
             open: { rotate: 180 },
             closed: { rotate: 0 },
@@ -74,10 +74,10 @@ export const RequirementFilter: React.FC<RequirementFilterProps> = ({
           transition={{ duration: 0.2 }}
           style={{ originY: 0.55 }}
         >
-          <BiChevronDown className='h-4 w-4 opacity-50' />
-        </motion.div>
-      </motion.button>
-      <motion.ul
+          <ChevronDown className='h-4 w-4 opacity-50' />
+        </m.div>
+      </m.button>
+      <m.ul
         className='flex flex-wrap'
         variants={{
           open: {
@@ -104,35 +104,35 @@ export const RequirementFilter: React.FC<RequirementFilterProps> = ({
         style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
       >
         {Object.values(AnimalTag).map((tag, index) => (
-          <motion.li variants={itemVariants} key={index}>
+          <m.li variants={itemVariants} key={index}>
             <TagButton
               tag={tag}
               onClick={() => toggleTag(tag)}
               selected={selectedTags.includes(tag)}
             />
-          </motion.li>
+          </m.li>
         ))}
 
         {/*<LogicButton logic={} selected={} />*/}
         {Object.values(ContinentTag).map((tag, index) => (
-          <motion.li variants={itemVariants} key={index}>
+          <m.li variants={itemVariants} key={index}>
             <TagButton
               tag={tag}
               onClick={() => toggleTag(tag)}
               selected={selectedTags.includes(tag)}
             />
-          </motion.li>
+          </m.li>
         ))}
         {otherTagRequirements.map((tag, index) => (
-          <motion.li variants={itemVariants} key={index}>
+          <m.li variants={itemVariants} key={index}>
             <TagButton
               tag={tag}
               onClick={() => toggleTag(tag)}
               selected={selectedTags.includes(tag)}
             />
-          </motion.li>
+          </m.li>
         ))}
-      </motion.ul>
-    </motion.nav>
+      </m.ul>
+    </m.nav>
   );
 };

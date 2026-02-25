@@ -1,12 +1,12 @@
+import {
+  ArrowDown01,
+  ArrowDownAZ,
+  ArrowUp01,
+  ArrowUpAZ,
+  StarHalf,
+} from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import {
-  TbSortAscending2,
-  TbSortAscendingNumbers,
-  TbSortDescending2,
-  TbSortDescendingNumbers,
-  TbStarHalfFilled,
-} from 'react-icons/tb';
 
 import TextButton from '@/components/buttons/TextButton';
 
@@ -45,15 +45,15 @@ export const SortButton: React.FC<SortButtonProps> = ({
   const getSortIcon = (sortOrder: SortOrder) => {
     switch (sortOrder) {
       case SortOrder.ID_ASC:
-        return <TbSortAscendingNumbers />;
+        return <ArrowUp01 className='h-4 w-4' />;
       case SortOrder.DIFF_ASC:
-        return <TbSortAscending2 />;
+        return <ArrowUpAZ className='h-4 w-4' />;
       case SortOrder.ID_DESC:
-        return <TbSortDescendingNumbers />;
+        return <ArrowDown01 className='h-4 w-4' />;
       case SortOrder.DIFF_DESC:
-        return <TbSortDescending2 />;
+        return <ArrowDownAZ className='h-4 w-4' />;
       case SortOrder.RATING_DESC:
-        return <TbStarHalfFilled />;
+        return <StarHalf className='h-4 w-4' />;
       default:
         return null;
     }

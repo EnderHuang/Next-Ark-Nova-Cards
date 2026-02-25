@@ -7,7 +7,7 @@ import {
   UserButton,
   useUser,
 } from '@clerk/nextjs';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import LocaleSelector from '@/components/layout/LocaleSelector';
@@ -27,7 +27,7 @@ export function Header() {
     <header className='sticky top-0 z-50 h-16 pt-6'>
       <Container className='w-full'>
         <div className='relative flex gap-4'>
-          <motion.div
+          <m.div
             className='flex flex-1'
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export function Header() {
             <NavigationBar.Mobile className='pointer-events-auto relative z-50 md:hidden' />
             <NavigationBar.Desktop className='pointer-events-auto relative z-50 hidden md:block' />
           </div>
-          <motion.div
+          <m.div
             className='flex justify-end gap-3 md:flex-1'
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -53,7 +53,7 @@ export function Header() {
             <div className='pointer-events-auto'>
               <LocaleSelector />
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </Container>
     </header>
@@ -86,7 +86,7 @@ function UserInfo() {
   return (
     <AnimatePresence>
       <SignedIn key='user-info'>
-        <motion.div
+        <m.div
           className='pointer-events-auto relative flex h-10 items-center'
           initial={{ opacity: 0, x: 25 }}
           animate={{ opacity: 1, x: 0 }}
@@ -105,10 +105,10 @@ function UserInfo() {
               <StrategyIcon className='h-3 w-3' />
             </span>
           )}
-        </motion.div>
+        </m.div>
       </SignedIn>
       <SignedOut key='sign-in'>
-        <motion.div
+        <m.div
           className='pointer-events-auto'
           initial={{ opacity: 0, x: 25 }}
           animate={{ opacity: 1, x: 0 }}
@@ -131,20 +131,20 @@ function UserInfo() {
                 {tooltipOpen && (
                   <Tooltip.Portal forceMount>
                     <Tooltip.Content asChild>
-                      <motion.div
+                      <m.div
                         initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                       >
                         Login
-                      </motion.div>
+                      </m.div>
                     </Tooltip.Content>
                   </Tooltip.Portal>
                 )}
               </AnimatePresence>
             </Tooltip.Root>
           </Tooltip.Provider>
-        </motion.div>
+        </m.div>
       </SignedOut>
     </AnimatePresence>
   );

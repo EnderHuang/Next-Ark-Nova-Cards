@@ -1,5 +1,5 @@
+import { type LucideIcon } from 'lucide-react';
 import * as React from 'react';
-import { IconType } from 'react-icons';
 import UnstyledLink, {
   UnstyledLinkProps,
 } from '@/components/links/UnstyledLink';
@@ -18,8 +18,8 @@ type ButtonLinkProps = {
   isDarkBg?: boolean;
   variant?: (typeof ButtonLinkVariant)[number];
   size?: (typeof ButtonLinkSize)[number];
-  leftIcon?: IconType;
-  rightIcon?: IconType;
+  leftIcon?: LucideIcon;
+  rightIcon?: LucideIcon;
   leftIconClassName?: string;
   rightIconClassName?: string;
 } & UnstyledLinkProps;

@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import React from 'react';
 
@@ -31,7 +31,7 @@ export function ThemeToggle() {
     >
       <AnimatePresence mode='wait' initial={false}>
         {isDark ? (
-          <motion.svg
+          <m.svg
             key='moon'
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
@@ -47,9 +47,9 @@ export function ThemeToggle() {
             transition={{ duration: 0.2 }}
           >
             <path d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z' />
-          </motion.svg>
+          </m.svg>
         ) : (
-          <motion.svg
+          <m.svg
             key='sun'
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
@@ -73,7 +73,7 @@ export function ThemeToggle() {
             <path d='M20 12h2' />
             <path d='m6.34 17.66-1.41 1.41' />
             <path d='m19.07 4.93-1.41 1.41' />
-          </motion.svg>
+          </m.svg>
         )}
       </AnimatePresence>
     </button>

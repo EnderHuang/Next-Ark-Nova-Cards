@@ -1,5 +1,5 @@
+import { type LucideIcon } from 'lucide-react';
 import * as React from 'react';
-import { IconType } from 'react-icons';
 import UnstyledLink, {
   UnstyledLinkProps,
 } from '@/components/links/UnstyledLink';
@@ -16,7 +16,7 @@ const IconLinkVariant = [
 type IconLinkProps = {
   isDarkBg?: boolean;
   variant?: (typeof IconLinkVariant)[number];
-  icon?: IconType;
+  icon?: LucideIcon;
   iconClassName?: string;
 } & Omit<UnstyledLinkProps, 'children'>;
 

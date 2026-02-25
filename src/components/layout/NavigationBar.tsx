@@ -1,5 +1,5 @@
-import { Popover, type PopoverProps, Transition } from '@headlessui/react';
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import * as Dialog from '@radix-ui/react-dialog';
+import { m, useMotionTemplate, useMotionValue } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'next-i18next';
@@ -28,10 +28,7 @@ function NavItem({
       >
         {children}
         {isActive && (
-          <motion.span
-            className='absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-primary/0 via-primary/70 to-primary/0'
-            layoutId='active-nav-item'
-          />
+          <span className='absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-primary/0 via-primary/70 to-primary/0' />
         )}
       </Link>
     </li>
@@ -71,7 +68,7 @@ function Desktop({
       )}
       {...props}
     >
-      <motion.div
+      <m.div
         className='pointer-events-none absolute -inset-px rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100'
         style={{ background }}
         aria-hidden='true'
@@ -97,92 +94,78 @@ function MobileNavItem({
 }) {
   return (
     <li>
-      <Popover.Button as={Link} href={href} className='block py-2'>
-        {children}
-      </Popover.Button>
+      <Dialog.Close asChild>
+        <Link href={href} className='block py-2'>
+          {children}
+        </Link>
+      </Dialog.Close>
     </li>
   );
 }
 
-function Mobile(props: PopoverProps<'div'>) {
+function Mobile({ className }: { className?: string }) {
   const { t } = useTranslation('common');
   return (
-    <Popover {...props}>
-      <Popover.Button className='group flex w-28 items-center justify-between rounded-full bg-gradient-to-b from-sage-50/20 to-white/80 px-4 py-2 text-sm font-medium text-foreground shadow-lg shadow-sage-800/5 ring-1 ring-sage-900/5 backdrop-blur-md focus:outline-none focus-visible:ring-2 dark:from-sage-900/30 dark:to-sage-950/80 dark:ring-white/10 dark:hover:ring-white/20 dark:focus-visible:ring-primary/80'>
-        {t('nav.go')}
-        <svg
-          viewBox='0 0 8 6'
-          aria-hidden='true'
-          className='ml-3 h-auto w-2 stroke-sage-500 group-hover:stroke-sage-700 dark:group-hover:stroke-sage-400'
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <button
+          className={cn(
+            'group flex w-28 items-center justify-between rounded-full bg-gradient-to-b from-sage-50/20 to-white/80 px-4 py-2 text-sm font-medium text-foreground shadow-lg shadow-sage-800/5 ring-1 ring-sage-900/5 backdrop-blur-md focus:outline-none focus-visible:ring-2 dark:from-sage-900/30 dark:to-sage-950/80 dark:ring-white/10 dark:hover:ring-white/20 dark:focus-visible:ring-primary/80',
+            className,
+          )}
         >
-          <path
-            d='M1.75 1.75 4 4.25l2.25-2.5'
-            fill='none'
-            strokeWidth='1.5'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          />
-        </svg>
-      </Popover.Button>
-      <Transition.Root>
-        <Transition.Child
-          as={React.Fragment}
-          enter='duration-150 ease-out'
-          enterFrom='opacity-0'
-          enterTo='opacity-100'
-          leave='duration-150 ease-in'
-          leaveFrom='opacity-100'
-          leaveTo='opacity-0'
-        >
-          <Popover.Overlay className='fixed inset-0 z-50 bg-sage-800/40 backdrop-blur dark:bg-black/80' />
-        </Transition.Child>
-        <Transition.Child
-          as={React.Fragment}
-          enter='duration-150 ease-out'
-          enterFrom='opacity-0 scale-95'
-          enterTo='opacity-100 scale-100'
-          leave='duration-150 ease-in'
-          leaveFrom='opacity-100 scale-100'
-          leaveTo='opacity-0 scale-95'
-        >
-          <Popover.Panel
-            focus
-            className='fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-gradient-to-b from-sage-100/75 to-white p-8 ring-1 ring-sage-900/5 dark:from-sage-900/50 dark:to-sage-950 dark:ring-sage-800'
+          {t('nav.go')}
+          <svg
+            viewBox='0 0 8 6'
+            aria-hidden='true'
+            className='ml-3 h-auto w-2 stroke-sage-500 group-hover:stroke-sage-700 dark:group-hover:stroke-sage-400'
           >
-            <div className='flex flex-row-reverse items-center justify-between'>
-              <Popover.Button aria-label='关闭菜单' className='-m-1 p-1'>
-                <svg
-                  viewBox='0 0 24 24'
-                  aria-hidden='true'
-                  className='h-6 w-6 text-sage-500 dark:text-sage-400'
-                >
-                  <path
-                    d='m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-              </Popover.Button>
-              <h2 className='text-sm font-medium text-sage-600 dark:text-sage-400'>
-                {t('nav.go')}
-              </h2>
-            </div>
-            <nav className='mt-6'>
-              <ul className='-my-2 divide-y divide-sage-500/20 text-base text-foreground dark:divide-sage-100/5'>
-                {navigationItems.map(({ href, text }) => (
-                  <MobileNavItem key={href} href={href}>
-                    {t(text)}
-                  </MobileNavItem>
-                ))}
-              </ul>
-            </nav>
-          </Popover.Panel>
-        </Transition.Child>
-      </Transition.Root>
-    </Popover>
+            <path
+              d='M1.75 1.75 4 4.25l2.25-2.5'
+              fill='none'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        </button>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className='fixed inset-0 z-50 bg-sage-800/40 backdrop-blur data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 dark:bg-black/80' />
+        <Dialog.Content className='fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-gradient-to-b from-sage-100/75 to-white p-8 ring-1 ring-sage-900/5 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 dark:from-sage-900/50 dark:to-sage-950 dark:ring-sage-800'>
+          <div className='flex flex-row-reverse items-center justify-between'>
+            <Dialog.Close className='-m-1 p-1' aria-label='Close menu'>
+              <svg
+                viewBox='0 0 24 24'
+                aria-hidden='true'
+                className='h-6 w-6 text-sage-500 dark:text-sage-400'
+              >
+                <path
+                  d='m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth='1.5'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            </Dialog.Close>
+            <Dialog.Title className='text-sm font-medium text-sage-600 dark:text-sage-400'>
+              {t('nav.go')}
+            </Dialog.Title>
+          </div>
+          <nav className='mt-6'>
+            <ul className='-my-2 divide-y divide-sage-500/20 text-base text-foreground dark:divide-sage-100/5'>
+              {navigationItems.map(({ href, text }) => (
+                <MobileNavItem key={href} href={href}>
+                  {t(text)}
+                </MobileNavItem>
+              ))}
+            </ul>
+          </nav>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
 

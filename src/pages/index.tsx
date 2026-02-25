@@ -1,9 +1,9 @@
+import { RotateCcw } from 'lucide-react';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
-import { FiRotateCcw } from 'react-icons/fi';
 
 import { SortButton } from '@/components/buttons/SortButton';
 import { AnimalCardList } from '@/components/cards/animal_cards/AnimalCardList';
@@ -125,7 +125,7 @@ export default function HomePage(
               onClick={resetAll}
               className='flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sage-700 text-white transition-colors hover:bg-sage-600 dark:bg-sage-800 dark:hover:bg-sage-700'
             >
-              <FiRotateCcw className='h-4 w-4' />
+              <RotateCcw className='h-4 w-4' />
             </button>
           </div>
           <div className='flex flex-wrap items-center gap-2 md:gap-3'>

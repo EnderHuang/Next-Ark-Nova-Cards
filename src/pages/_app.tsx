@@ -1,4 +1,5 @@
 import { ClerkProvider } from '@clerk/nextjs';
+import { LazyMotion } from 'framer-motion';
 import { AppProps } from 'next/app';
 import Script from 'next/script';
 import { appWithTranslation } from 'next-i18next';
@@ -8,6 +9,9 @@ import '@/styles/globals.css';
 import '@/styles/arknova.css';
 import '@/styles/odometer.css';
 import '@/styles/clerk.css';
+
+const loadFeatures = () =>
+  import('@/lib/framer-features').then((res) => res.default);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -35,11 +39,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         `,
         }}
       />
-      <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
-        <ClerkProvider {...pageProps}>
-          <Component {...pageProps} />
-        </ClerkProvider>
-      </ThemeProvider>
+      <LazyMotion features={loadFeatures}>
+        <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
+          <ClerkProvider {...pageProps}>
+            <Component {...pageProps} />
+          </ClerkProvider>
+        </ThemeProvider>
+      </LazyMotion>
     </>
   );
 }

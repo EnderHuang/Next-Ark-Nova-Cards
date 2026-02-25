@@ -1,5 +1,5 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React from 'react';
-import { VscTriangleLeft, VscTriangleRight } from 'react-icons/vsc';
 
 import ActionCardIcon from '@/components/icons/actions/ActionCardIcon';
 import Strength from '@/components/icons/actions/Strength';
@@ -16,9 +16,9 @@ const Boost: React.FC<actionTypeProps> = ({ actionType }) => {
       <span className='scale-75'>
         <Strength value={1} />
       </span>
-      <VscTriangleLeft className='z-20 -ml-2 -mr-1 h-12 ' />
+      <ChevronLeft className='z-20 -ml-2 -mr-1 h-12' />
       <ActionCardIcon actionType={actionType} />
-      <VscTriangleRight className='z-20 -ml-1 -mr-2 h-12 ' />
+      <ChevronRight className='z-20 -ml-1 -mr-2 h-12' />
       <span className='scale-75'>
         <Strength value={5} />
       </span>

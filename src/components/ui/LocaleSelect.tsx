@@ -1,8 +1,8 @@
 'use client';
 
 import * as SelectPrimitive from '@radix-ui/react-select';
+import { Check, ChevronDown } from 'lucide-react';
 import React from 'react';
-import { BiCheck, BiChevronDown } from 'react-icons/bi';
 
 import { cn } from '@/lib/utils';
 
@@ -25,7 +25,7 @@ const Trigger = React.forwardRef<
     {...props}
   >
     {children}
-    <BiChevronDown className='h-4 w-4 opacity-50' />
+    <ChevronDown className='h-4 w-4 opacity-50' />
   </SelectPrimitive.Trigger>
 ));
 Trigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -81,7 +81,7 @@ const Item = React.forwardRef<
   >
     <span className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
       <SelectPrimitive.ItemIndicator>
-        <BiCheck className='h-4 w-4' />
+        <Check className='h-4 w-4' />
       </SelectPrimitive.ItemIndicator>
     </span>
 

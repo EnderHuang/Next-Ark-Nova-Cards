@@ -1,6 +1,6 @@
+import { AlertTriangle } from 'lucide-react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { RiAlarmWarningFill } from 'react-icons/ri';
 
 import Layout from '@/components/layout/Layout';
 import ArrowLink from '@/components/links/ArrowLink';
@@ -16,7 +16,7 @@ export default function NotFoundPage(
       <main>
         <section className='bg-white/0'>
           <div className='layout flex min-h-screen flex-col items-center justify-center text-center text-black'>
-            <RiAlarmWarningFill
+            <AlertTriangle
               size={60}
               className='drop-shadow-glow animate-flicker text-red-500'
             />

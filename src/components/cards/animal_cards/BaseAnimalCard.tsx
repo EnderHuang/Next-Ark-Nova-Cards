@@ -1,8 +1,9 @@
 // AnimalCard.tsx
+
+import { Sparkle } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { GiSevenPointedStar } from 'react-icons/gi';
 import AbilityComponent from '@/components/abilities/Ability';
 import Constriction from '@/components/icons/abilities/Constriction';
 import Hypnosis from '@/components/icons/abilities/Hypnosis';
@@ -117,7 +118,7 @@ export const BaseAnimalCard: React.FC<AnimalCardProps> = ({ animal }) => {
           <div className='ark-card-number'>{animal.id}</div>
           {animal.source === CardSource.PROMO && (
             <div className='ark-card-exp'>
-              <GiSevenPointedStar className='opacity-30' />
+              <Sparkle className='opacity-30' />
             </div>
           )}
           <div className='ark-card-title-wrapper'>
