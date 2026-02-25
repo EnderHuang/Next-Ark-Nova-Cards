@@ -6,6 +6,7 @@ import TextButton from '@/components/buttons/TextButton';
 import { ActionCardPopover } from '@/components/cards/action_cards/ActionCardPopover';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 import {
   ACTION_CARDS,
@@ -151,6 +152,15 @@ export const ActionCardList: React.FC = () => {
         <h1 className='text-2xl font-bold text-foreground'>
           {t('actions.title', '海洋扩变体行动卡')}
         </h1>
+
+        <Alert className='bg-primary/5 border-primary/20'>
+          <AlertDescription>
+            {t(
+              'actions.beta_notice',
+              'This page is in beta testing. Features are under active development and will support multiple languages in the future.',
+            )}
+          </AlertDescription>
+        </Alert>
 
         <div className='flex flex-col gap-3'>
           <div className='flex flex-wrap gap-2'>
