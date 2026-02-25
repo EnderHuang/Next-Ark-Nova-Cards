@@ -1,5 +1,5 @@
 import { toPng } from 'html-to-image';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'next-i18next';
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { RatedAnimalCard } from '@/components/cards/animal_cards/RatedAnimalCard';
 import CardList from '@/components/cards/shared/CardList';
@@ -30,7 +30,6 @@ interface AnimalCardListProps {
   sortOrder?: SortOrder;
   size?: number[];
   onCardCountChange: (count: number) => void;
-  maxNum?: number;
   includeFanMade?: boolean;
 }
 
@@ -83,7 +82,6 @@ export const AnimalCardList: React.FC<AnimalCardListProps> = ({
   onCardCountChange,
   sortOrder = SortOrder.ID_ASC,
   size = [0],
-  maxNum,
   includeFanMade = false,
 }) => {
   const { t } = useTranslation('common');
@@ -94,14 +92,26 @@ export const AnimalCardList: React.FC<AnimalCardListProps> = ({
   });
 
   const animalsData = useAnimalData(includeFanMade);
-  const filteredAnimals = filterAnimals(
-    animalsData,
-    selectedTags,
-    selectedRequirements,
-    selectedCardSources,
-    textFilter,
-    size,
-    t,
+  const filteredAnimals = useMemo(
+    () =>
+      filterAnimals(
+        animalsData,
+        selectedTags,
+        selectedRequirements,
+        selectedCardSources,
+        textFilter,
+        size,
+        t,
+      ),
+    [
+      animalsData,
+      selectedTags,
+      selectedRequirements,
+      selectedCardSources,
+      textFilter,
+      size,
+      t,
+    ],
   );
 
   const combineDataWithRatings = (
@@ -166,33 +176,36 @@ export const AnimalCardList: React.FC<AnimalCardListProps> = ({
     }
 
     return {
-      ratedAnimalCards:
-        maxNum !== undefined
-          ? _ratedAnimalCards.slice(0, maxNum)
-          : _ratedAnimalCards,
+      ratedAnimalCards: _ratedAnimalCards,
       originalCount: _ratedAnimalCards.length,
     };
-  }, [cardRatings, initialAnimalCards, filteredAnimals, sortOrder, maxNum]);
+  }, [cardRatings, initialAnimalCards, filteredAnimals, sortOrder]);
 
   useEffect(() => {
     onCardCountChange(originalCount);
   }, [originalCount, onCardCountChange]);
 
+  const renderCard = useCallback(
+    (card: IAnimalCard) => (
+      <div className='-mb-12 scale-75 sm:mb-1 sm:scale-90 md:mb-4 md:scale-100'>
+        <RatedAnimalCard cardData={card} showLink={true} />
+      </div>
+    ),
+    [],
+  );
+
+  const getItemKey = useCallback((card: IAnimalCard) => card.id, []);
+
   return (
-    <CardList>
-      {ratedAnimalCards.map((ratedAnimalCard: IAnimalCard) => (
-        <div
-          key={ratedAnimalCard.id}
-          className='-mb-12 scale-75 sm:mb-1 sm:scale-90 md:mb-4 md:scale-100'
-        >
-          <RatedAnimalCard
-            key={ratedAnimalCard.id}
-            cardData={ratedAnimalCard}
-            showLink={true}
-          />
-        </div>
-      ))}
-    </CardList>
+    <CardList
+      items={ratedAnimalCards}
+      itemKey={getItemKey}
+      renderItem={renderCard}
+      virtualized={true}
+      estimateSize={380}
+      gap={16}
+      overscan={5}
+    />
   );
 };
 

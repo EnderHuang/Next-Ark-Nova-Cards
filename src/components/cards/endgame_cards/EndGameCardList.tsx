@@ -8,7 +8,7 @@ import { fetchCardRatings } from '@/services/card';
 
 import { CardSource } from '@/types/CardSource';
 import { EndGameCard, IEndGameCard } from '@/types/EndGameCard';
-import { IRating } from '@/types/IRating';
+import type { IRating } from '@/types/IRating';
 import { SortOrder } from '@/types/Order';
 
 interface EndGameCardListProps {
@@ -43,67 +43,56 @@ export const EndGameCardList: React.FC<EndGameCardListProps> = ({
 }) => {
   // 监听评分数据，但不主动获取（由点击触发）
   const { data: cardRatings } = useQuery(['cardRatings'], fetchCardRatings, {
-    enabled: false, // 不主动获取
-    staleTime: 5 * 60 * 1000, // 5分钟缓存
+    enabled: false,
+    staleTime: 5 * 60 * 1000,
   });
-  const filteredEndGames = filterCards(
-    EndGameData,
-    selectedCardSources,
-    textFilter,
+
+  const filteredEndGames = useMemo(
+    () => filterCards(EndGameData, selectedCardSources, textFilter),
+    [selectedCardSources, textFilter],
   );
 
-  const combineDataWithRatings = (
-    cards: EndGameCard[],
-    ratings: IRating[],
-  ): IEndGameCard[] => {
-    return cards.map((card) => {
-      const rating = ratings.find((r) => r.cardid === card.id);
-      return {
-        id: card.id,
-        endGameCard: card,
-        rating: rating ? rating._avg.rating : null,
-        ratingCount: rating ? rating._count : null,
-      };
-    });
-  };
+  const ratedEndGameCards = useMemo(() => {
+    const cards: IEndGameCard[] = cardRatings
+      ? filteredEndGames.map((card) => {
+          const rating = cardRatings.find((r: IRating) => r.cardid === card.id);
+          return {
+            id: card.id,
+            endGameCard: card,
+            rating: rating ? rating._avg.rating : null,
+            ratingCount: rating ? rating._count : null,
+          };
+        })
+      : filteredEndGames.map((card) => ({
+          id: card.id,
+          endGameCard: card,
+          rating: null,
+          ratingCount: null,
+        }));
 
-  const initialEndGameCards: IEndGameCard[] = useMemo(() => {
-    return filteredEndGames.map((card) => ({
-      id: card.id,
-      endGameCard: card,
-      rating: null,
-      ratingCount: null,
-    }));
-  }, [filteredEndGames]);
-
-  const ratedEndGameCards: IEndGameCard[] = useMemo(() => {
-    if (!cardRatings) {
-      return initialEndGameCards;
+    switch (sortOrder) {
+      case SortOrder.ID_ASC:
+        cards.sort((a, b) => a.id.localeCompare(b.id));
+        break;
+      case SortOrder.ID_DESC:
+        cards.sort((a, b) => b.id.localeCompare(a.id));
+        break;
+      case SortOrder.RATING_DESC:
+        cards.sort((a, b) => {
+          if ((b.rating ?? -1) !== (a.rating ?? -1)) {
+            return (b.rating ?? -1) - (a.rating ?? -1);
+          }
+          return (b.ratingCount ?? -1) - (a.ratingCount ?? -1);
+        });
+        break;
     }
-    return combineDataWithRatings(filteredEndGames, cardRatings);
-  }, [filteredEndGames, cardRatings, initialEndGameCards]);
+
+    return cards;
+  }, [filteredEndGames, cardRatings, sortOrder]);
 
   useEffect(() => {
     onCardCountChange(filteredEndGames.length);
-  }, [filteredEndGames, onCardCountChange]);
-
-  switch (sortOrder) {
-    case SortOrder.ID_ASC:
-      ratedEndGameCards.sort((a, b) => a.id.localeCompare(b.id));
-      break;
-    case SortOrder.ID_DESC:
-      ratedEndGameCards.sort((a, b) => b.id.localeCompare(a.id));
-      break;
-    case SortOrder.RATING_DESC:
-      ratedEndGameCards.sort((a, b) => {
-        if ((b.rating ?? -1) !== (a.rating ?? -1)) {
-          return (b.rating ?? -1) - (a.rating ?? -1);
-        } else {
-          return (b.ratingCount ?? -1) - (a.ratingCount ?? -1);
-        }
-      });
-      break;
-  }
+  }, [filteredEndGames.length, onCardCountChange]);
 
   return (
     <CardList>

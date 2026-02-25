@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'next-i18next';
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import CardList from '@/components/cards/shared/CardList';
 
@@ -34,7 +34,6 @@ interface SponsorCardListProps {
   strength?: number[];
   onCardCountChange: (count: number) => void;
   showHumanSponsors?: boolean;
-  maxNum?: number;
   includeFanMade?: boolean;
 }
 
@@ -106,7 +105,6 @@ export const SponsorCardList: React.FC<SponsorCardListProps> = ({
   sortOrder = SortOrder.ID_ASC,
   showHumanSponsors = false,
   strength = [0],
-  maxNum,
   includeFanMade = false,
 }) => {
   const { t } = useTranslation('common');
@@ -116,15 +114,28 @@ export const SponsorCardList: React.FC<SponsorCardListProps> = ({
     staleTime: 5 * 60 * 1000, // 5分钟缓存
   });
   const sponsorsData = useSponsorData(includeFanMade);
-  const filteredSponsors = filterSponsors(
-    sponsorsData,
-    selectedTags,
-    selectedRequirements,
-    selectedCardSources,
-    showHumanSponsors,
-    textFilter,
-    strength,
-    t,
+  const filteredSponsors = useMemo(
+    () =>
+      filterSponsors(
+        sponsorsData,
+        selectedTags,
+        selectedRequirements,
+        selectedCardSources,
+        showHumanSponsors,
+        textFilter,
+        strength,
+        t,
+      ),
+    [
+      sponsorsData,
+      selectedTags,
+      selectedRequirements,
+      selectedCardSources,
+      showHumanSponsors,
+      textFilter,
+      strength,
+      t,
+    ],
   );
 
   const combineDataWithRatings = (
@@ -175,50 +186,35 @@ export const SponsorCardList: React.FC<SponsorCardListProps> = ({
     }
 
     return {
-      ratedSponsorCards:
-        maxNum !== undefined
-          ? _ratedSponsorCards.slice(0, maxNum)
-          : _ratedSponsorCards,
+      ratedSponsorCards: _ratedSponsorCards,
       originalCount: _ratedSponsorCards.length,
     };
-  }, [cardRatings, initialSponsorCards, filteredSponsors, sortOrder, maxNum]);
-
-  switch (sortOrder) {
-    case SortOrder.ID_ASC:
-      ratedSponsorCards.sort((a, b) => a.id.localeCompare(b.id));
-      break;
-    case SortOrder.ID_DESC:
-      ratedSponsorCards.sort((a, b) => b.id.localeCompare(a.id));
-      break;
-    case SortOrder.RATING_DESC:
-      ratedSponsorCards.sort((a, b) => {
-        if ((b.rating ?? -1) !== (a.rating ?? -1)) {
-          return (b.rating ?? -1) - (a.rating ?? -1);
-        } else {
-          return (b.ratingCount ?? -1) - (a.ratingCount ?? -1);
-        }
-      });
-      break;
-  }
+  }, [cardRatings, initialSponsorCards, filteredSponsors, sortOrder]);
 
   useEffect(() => {
     onCardCountChange(originalCount);
   }, [originalCount, onCardCountChange]);
 
+  const renderCard = useCallback(
+    (card: ISponsorCard) => (
+      <div className='-mb-12 scale-75 sm:mb-1 sm:scale-90 md:mb-4 md:scale-100'>
+        <RatedSponsorCard cardData={card} showLink={true} />
+      </div>
+    ),
+    [],
+  );
+
+  const getItemKey = useCallback((card: ISponsorCard) => card.id, []);
+
   return (
-    <CardList>
-      {ratedSponsorCards.map((ratedSponsorCard: ISponsorCard) => (
-        <div
-          key={ratedSponsorCard.id}
-          className='-mb-12 scale-75 sm:mb-1 sm:scale-90 md:mb-4 md:scale-100'
-        >
-          <RatedSponsorCard
-            key={ratedSponsorCard.id}
-            cardData={ratedSponsorCard}
-            showLink={true}
-          />
-        </div>
-      ))}
-    </CardList>
+    <CardList
+      items={ratedSponsorCards}
+      itemKey={getItemKey}
+      renderItem={renderCard}
+      virtualized={true}
+      estimateSize={380}
+      gap={16}
+      overscan={5}
+    />
   );
 };

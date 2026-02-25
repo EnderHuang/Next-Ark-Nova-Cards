@@ -16,22 +16,18 @@ interface RatedSponsorCardProps {
   showLink: boolean;
 }
 
-export const RatedSponsorCard: React.FC<RatedSponsorCardProps> = ({
-  cardData,
-  showLink,
-}) => {
-  const { sponsorCard, rating, ratingCount } = cardData;
-  const { triggerRatingFetch } = useRatingTrigger();
+export const RatedSponsorCard: React.FC<RatedSponsorCardProps> = React.memo(
+  ({ cardData, showLink }) => {
+    const { sponsorCard, rating, ratingCount } = cardData;
+    const { triggerRatingFetch } = useRatingTrigger();
 
-  const handleOpenChange = (open: boolean) => {
-    if (open) {
-      // 当popover打开时，触发评分数据获取
-      triggerRatingFetch();
-    }
-  };
+    const handleOpenChange = (open: boolean) => {
+      if (open) {
+        triggerRatingFetch();
+      }
+    };
 
-  return (
-    <>
+    return (
       <PopHover onOpenChange={handleOpenChange}>
         <PopoverTrigger>
           <BaseSponsorCard sponsor={sponsorCard} />
@@ -46,6 +42,6 @@ export const RatedSponsorCard: React.FC<RatedSponsorCardProps> = ({
           />
         </PopoverContent>
       </PopHover>
-    </>
-  );
-};
+    );
+  },
+);

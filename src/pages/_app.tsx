@@ -12,19 +12,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Script
-        async
+        strategy='lazyOnload'
         src='https://umami.ender-wiggin.com/script.js'
         data-website-id='f2a10fa7-5a6f-4329-9bdf-c239f51b6c52'
-
-        // data-website-id='f2a10fa7-5a6f-4329-9bdf-c239f51b6c52'
-      ></Script>
+      />
       <Script
-        strategy='afterInteractive'
+        strategy='lazyOnload'
         src='https://www.googletagmanager.com/gtag/js?id=G-49MVJ63XFT'
-      ></Script>
+      />
       <Script
         id='google-analytics'
-        strategy='afterInteractive'
+        strategy='lazyOnload'
         dangerouslySetInnerHTML={{
           __html: `
           window.dataLayer = window.dataLayer || [];

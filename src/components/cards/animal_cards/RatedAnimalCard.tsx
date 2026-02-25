@@ -15,22 +15,18 @@ interface RatedAnimalCardProps {
   showLink: boolean;
 }
 
-export const RatedAnimalCard: React.FC<RatedAnimalCardProps> = ({
-  cardData,
-  showLink,
-}) => {
-  const { animalCard, model, rating, ratingCount } = cardData;
-  const { triggerRatingFetch } = useRatingTrigger();
+export const RatedAnimalCard: React.FC<RatedAnimalCardProps> = React.memo(
+  ({ cardData, showLink }) => {
+    const { animalCard, model, rating, ratingCount } = cardData;
+    const { triggerRatingFetch } = useRatingTrigger();
 
-  const handleOpenChange = (open: boolean) => {
-    if (open) {
-      // 当popover打开时，触发评分数据获取
-      triggerRatingFetch();
-    }
-  };
+    const handleOpenChange = (open: boolean) => {
+      if (open) {
+        triggerRatingFetch();
+      }
+    };
 
-  return (
-    <>
+    return (
       <PopHover onOpenChange={handleOpenChange}>
         <PopoverTrigger>
           <BaseAnimalCard animal={animalCard} />
@@ -45,6 +41,6 @@ export const RatedAnimalCard: React.FC<RatedAnimalCardProps> = ({
           />
         </PopoverContent>
       </PopHover>
-    </>
-  );
-};
+    );
+  },
+);

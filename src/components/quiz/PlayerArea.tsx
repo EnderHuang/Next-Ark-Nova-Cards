@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
