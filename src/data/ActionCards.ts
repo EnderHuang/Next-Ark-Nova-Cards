@@ -261,7 +261,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 3,
     name: '精选牌（Snap Cards）',
-    image: '/img/actions/cards/cards_3_1_精选牌（Snap Cards.jpg',
+    image: '/img/actions/cards/cards_3_1_精选牌（Snap Cards）.jpg',
   },
   {
     id: 'cards_3_2',
@@ -269,7 +269,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 3,
     name: '精选牌（Snap Cards）',
-    image: '/img/actions/cards/cards_3_2_精选牌（Snap Cards.jpg',
+    image: '/img/actions/cards/cards_3_2_精选牌（Snap Cards）.jpg',
   },
   {
     id: 'cards_4_1',
