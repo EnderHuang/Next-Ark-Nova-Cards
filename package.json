@@ -102,5 +102,5 @@
     "**/*.{js,jsx,ts,tsx}": ["biome check --write --diagnostic-level=error"],
     "**/*.{json,css,scss,md,webmanifest}": ["biome format --write"]
   },
-  "packageManager": "pnpm@8.6.12"
+  "packageManager": "pnpm@9.0.0"
 }
