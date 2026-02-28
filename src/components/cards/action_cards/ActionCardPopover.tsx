@@ -111,7 +111,7 @@ const ActionCardModal: React.FC<ActionCardModalProps> = ({
             className='relative z-10 w-full max-w-3xl max-h-[85vh] overflow-hidden rounded-2xl border border-border/50 bg-background shadow-2xl'
             onClick={(e) => e.stopPropagation()}
           >
-            <div className='flex items-center justify-between border-b border-border/30 bg-gradient-to-r from-sage-50/80 to-forest-50/80 px-6 py-4 dark:from-sage-900/30 dark:to-forest-900/30'>
+            <div className='flex items-center justify-between border-b border-border/30 bg-gradient-to-r from-sage-50/80 to-forest-50/80 px-4 py-4 sm:px-6 dark:from-sage-900/30 dark:to-forest-900/30'>
               <h3 className='text-xl font-bold text-foreground'>{cardName}</h3>
               <button
                 type='button'
@@ -135,16 +135,16 @@ const ActionCardModal: React.FC<ActionCardModalProps> = ({
             </div>
 
             <div
-              className='space-y-5 overflow-y-auto p-6'
+              className='space-y-5 overflow-y-auto p-3 sm:p-6'
               style={{ maxHeight: 'calc(85vh - 80px)' }}
             >
-              <div className='flex flex-wrap justify-center gap-3'>
+              <div className='flex justify-center gap-2 sm:gap-3'>
                 {selectableLevels.map((item) => (
                   <button
                     key={item.level}
                     type='button'
                     onClick={() => setSelectedLevel(item.level)}
-                    className='rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2'
+                    className='shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2'
                     aria-pressed={selectedLevel === item.level}
                     aria-label={
                       item.level === 1
@@ -153,7 +153,7 @@ const ActionCardModal: React.FC<ActionCardModalProps> = ({
                     }
                   >
                     <div
-                      className={`relative h-[232px] w-[166px] overflow-hidden rounded-xl bg-gradient-to-b from-white/30 to-sage-50/10 p-1 shadow-lg ring-1 transition-all sm:h-[250px] sm:w-[178px] lg:h-[264px] lg:w-[188px] ${
+                      className={`relative h-[172px] w-[123px] overflow-hidden rounded-xl bg-gradient-to-b from-white/30 to-sage-50/10 p-1 shadow-lg ring-1 transition-all sm:h-[232px] sm:w-[166px] lg:h-[250px] lg:w-[178px] ${
                         selectedLevel === item.level
                           ? 'ring-primary/90 shadow-xl'
                           : 'ring-border/60 opacity-90 hover:opacity-100'
@@ -168,7 +168,7 @@ const ActionCardModal: React.FC<ActionCardModalProps> = ({
                         alt={item.card.name}
                         fill
                         className='object-contain'
-                        sizes='(max-width: 640px) 166px, (max-width: 1024px) 178px, 188px'
+                        sizes='(max-width: 640px) 123px, (max-width: 1024px) 166px, 178px'
                       />
                     </div>
                   </button>
