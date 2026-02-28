@@ -45,7 +45,7 @@ const ActionCardItem: React.FC<{ card: ActionCard }> = ({ card }) => {
     >
       <div
         className={cn(
-          'relative h-[280px] w-[200px] overflow-hidden rounded-xl bg-gradient-to-b from-white/30 to-sage-50/10 p-1 shadow-lg ring-1 ring-border/60 transition-all',
+          'relative h-[232px] w-[166px] overflow-hidden rounded-xl bg-gradient-to-b from-white/30 to-sage-50/10 p-1 shadow-lg ring-1 ring-border/60 transition-all sm:h-[250px] sm:w-[178px] lg:h-[264px] lg:w-[188px]',
           hasDetails && 'group-hover:ring-primary/30 group-hover:shadow-xl',
         )}
       >
@@ -54,7 +54,7 @@ const ActionCardItem: React.FC<{ card: ActionCard }> = ({ card }) => {
           alt={card.name}
           fill
           className='object-contain'
-          sizes='(max-width: 768px) 200px, 250px'
+          sizes='(max-width: 640px) 166px, (max-width: 1024px) 178px, 188px'
         />
       </div>
     </div>
@@ -77,7 +77,7 @@ const ActionCardGroup: React.FC<{
   if (displayCards.length === 0) return null;
 
   return (
-    <div className='flex items-start gap-3'>
+    <div className='flex w-full items-start justify-center gap-3 sm:w-auto sm:justify-start'>
       {displayCards.map((card) => (
         <ActionCardItem key={card.id} card={card} />
       ))}
@@ -112,7 +112,7 @@ const CategorySection: React.FC<{
       <h2 className='border-b border-border/50 pb-2 text-lg font-semibold text-foreground/90'>
         {label}
       </h2>
-      <div className='flex flex-wrap gap-x-5 gap-y-6'>
+      <div className='flex flex-wrap justify-center gap-x-4 gap-y-5 sm:justify-start'>
         {sortedGroupKeys.map((groupKey) => (
           <ActionCardGroup
             key={groupKey}
@@ -132,19 +132,7 @@ export const ActionCardList: React.FC = () => {
     ActionCategory | 'all'
   >('all');
   const [levelFilter, setLevelFilter] = useState<LevelFilter>('all');
-  const [showBaseCards, setShowBaseCards] = useState(false);
-  const [showUpgradeCards, setShowUpgradeCards] = useState(true);
-
-  const handleCardSetToggle = (type: 'upgrade' | 'base') => {
-    if (type === 'upgrade') {
-      if (showUpgradeCards && !showBaseCards) return;
-      setShowUpgradeCards((prev) => !prev);
-      return;
-    }
-
-    if (showBaseCards && !showUpgradeCards) return;
-    setShowBaseCards((prev) => !prev);
-  };
+  const [cardSet, setCardSet] = useState<'upgrade' | 'base'>('upgrade');
 
   const categoryLabels: Record<ActionCategory | 'all', string> = useMemo(
     () => ({
@@ -168,14 +156,13 @@ export const ActionCardList: React.FC = () => {
   );
 
   const filteredCards = useMemo(() => {
-    let cards: ActionCard[] = [];
-    if (showUpgradeCards) cards = [...cards, ...ACTION_CARDS];
-    if (showBaseCards) cards = [...cards, ...BASE_ACTION_CARDS];
+    let cards: ActionCard[] =
+      cardSet === 'upgrade' ? ACTION_CARDS : BASE_ACTION_CARDS;
     if (selectedCategory !== 'all') {
       cards = cards.filter((card) => card.category === selectedCategory);
     }
     return cards;
-  }, [selectedCategory, showBaseCards, showUpgradeCards]);
+  }, [cardSet, selectedCategory]);
 
   const categoriesToDisplay =
     selectedCategory === 'all' ? CATEGORY_ORDER : [selectedCategory];
@@ -192,13 +179,19 @@ export const ActionCardList: React.FC = () => {
             <span className='text-xs font-semibold tracking-[0.12em] text-foreground/60'>
               {t('actions.card_set_label')}
             </span>
-            <div className='inline-flex w-fit rounded-2xl border border-primary/20 bg-gradient-to-r from-sage-100/50 via-white to-forest-100/40 p-1 shadow-inner'>
+            <div
+              className='inline-flex w-fit rounded-2xl border border-primary/20 bg-gradient-to-r from-sage-100/50 via-white to-forest-100/40 p-1 shadow-inner'
+              role='radiogroup'
+              aria-label={t('actions.card_set_label')}
+            >
               <button
                 type='button'
-                onClick={() => handleCardSetToggle('upgrade')}
+                onClick={() => setCardSet('upgrade')}
+                role='radio'
+                aria-checked={cardSet === 'upgrade'}
                 className={cn(
                   'h-9 rounded-xl px-4 text-xs font-semibold transition-all md:px-5 md:text-sm',
-                  showUpgradeCards
+                  cardSet === 'upgrade'
                     ? 'bg-white text-primary shadow-md ring-1 ring-primary/25'
                     : 'text-foreground/70 hover:text-foreground',
                 )}
@@ -207,10 +200,12 @@ export const ActionCardList: React.FC = () => {
               </button>
               <button
                 type='button'
-                onClick={() => handleCardSetToggle('base')}
+                onClick={() => setCardSet('base')}
+                role='radio'
+                aria-checked={cardSet === 'base'}
                 className={cn(
                   'h-9 rounded-xl px-4 text-xs font-semibold transition-all md:px-5 md:text-sm',
-                  showBaseCards
+                  cardSet === 'base'
                     ? 'bg-white text-primary shadow-md ring-1 ring-primary/25'
                     : 'text-foreground/70 hover:text-foreground',
                 )}
