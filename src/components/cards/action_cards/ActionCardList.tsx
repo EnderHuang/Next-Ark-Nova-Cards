@@ -26,12 +26,39 @@ const CATEGORY_ORDER: ActionCategory[] = [
 ];
 
 const ActionCardItem: React.FC<{ card: ActionCard }> = ({ card }) => {
+  const { i18n } = useTranslation();
+  const isZhCN = i18n.language === 'zh-CN' || i18n.language === 'zh';
+
+  // Get the image path based on locale
+  const getImagePath = (imagePath: string) => {
+    if (isZhCN) {
+      return imagePath;
+    }
+    // For non-Chinese locales, use English images from /img/actions/en/
+    const match = imagePath.match(/^\/img\/actions\/([^/]+)\/(.+)\.jpg$/);
+    if (match) {
+      const [, category, filename] = match;
+      const categoryMap: Record<string, string> = {
+        animals: '英文animals',
+        association: '英文association',
+        build: '英文build',
+        cards: '英文cards',
+        sponsors: '英文sponsors',
+      };
+      const enCategory = categoryMap[category] || category;
+      return `/img/actions/en/${enCategory}/${filename}.webp`;
+    }
+    return imagePath;
+  };
+
+  const imagePath = getImagePath(card.image);
+
   return (
     <ActionCardPopover cardId={card.id}>
       <div className='flex cursor-pointer flex-col items-center transition-transform hover:scale-[1.02]'>
         <div className='relative h-[280px] w-[200px] overflow-hidden rounded-lg shadow-lg ring-1 ring-border/50 transition-all hover:ring-primary/30 hover:shadow-xl'>
           <Image
-            src={card.image}
+            src={imagePath}
             alt={card.name}
             fill
             className='object-contain'
