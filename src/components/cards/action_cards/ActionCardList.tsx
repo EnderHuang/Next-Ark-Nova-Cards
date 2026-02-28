@@ -7,13 +7,15 @@ import { ActionCardPopover } from '@/components/cards/action_cards/ActionCardPop
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-
 import {
   ACTION_CARDS,
   ActionCard,
   ActionCategory,
+  BASE_ACTION_CARDS,
   getGroupedCards,
+  getLocalizedActionImagePath,
 } from '@/data/ActionCards';
+import { cn } from '@/lib/utils';
 
 type LevelFilter = 1 | 2 | 'all';
 
@@ -27,54 +29,46 @@ const CATEGORY_ORDER: ActionCategory[] = [
 
 const ActionCardItem: React.FC<{ card: ActionCard }> = ({ card }) => {
   const { i18n } = useTranslation();
-  const isZhCN = i18n.language === 'zh-CN' || i18n.language === 'zh';
-
-  // Get the image path based on locale
-  const getImagePath = (imagePath: string) => {
-    if (isZhCN) {
-      return imagePath;
-    }
-    // For non-Chinese locales, use English images from /img/actions/en/
-    const match = imagePath.match(/^\/img\/actions\/([^/]+)\/(.+)\.jpg$/);
-    if (match) {
-      const [, category, filename] = match;
-      const categoryMap: Record<string, string> = {
-        animals: '英文animals',
-        association: '英文association',
-        build: '英文build',
-        cards: '英文cards',
-        sponsors: '英文sponsors',
-      };
-      const enCategory = categoryMap[category] || category;
-      return `/img/actions/en/${enCategory}/${filename}.webp`;
-    }
-    return imagePath;
-  };
-
-  const imagePath = getImagePath(card.image);
-
-  return (
-    <ActionCardPopover cardId={card.id}>
-      <div className='flex cursor-pointer flex-col items-center transition-transform hover:scale-[1.02]'>
-        <div className='relative h-[280px] w-[200px] overflow-hidden rounded-lg shadow-lg ring-1 ring-border/50 transition-all hover:ring-primary/30 hover:shadow-xl'>
-          <Image
-            src={imagePath}
-            alt={card.name}
-            fill
-            className='object-contain'
-            sizes='(max-width: 768px) 200px, 250px'
-          />
-        </div>
-      </div>
-    </ActionCardPopover>
+  const hasDetails = !card.isBase;
+  const imagePath = getLocalizedActionImagePath(
+    card.image,
+    i18n.language,
+    card.isBase,
   );
+
+  const content = (
+    <div
+      className={cn(
+        'group flex flex-col items-center transition-transform',
+        hasDetails ? 'cursor-pointer hover:scale-[1.02]' : 'cursor-default',
+      )}
+    >
+      <div
+        className={cn(
+          'relative h-[280px] w-[200px] overflow-hidden rounded-xl bg-gradient-to-b from-white/30 to-sage-50/10 p-1 shadow-lg ring-1 ring-border/60 transition-all',
+          hasDetails && 'group-hover:ring-primary/30 group-hover:shadow-xl',
+        )}
+      >
+        <Image
+          src={imagePath}
+          alt={card.name}
+          fill
+          className='object-contain'
+          sizes='(max-width: 768px) 200px, 250px'
+        />
+      </div>
+    </div>
+  );
+
+  if (!hasDetails) return content;
+
+  return <ActionCardPopover cardId={card.id}>{content}</ActionCardPopover>;
 };
 
 const ActionCardGroup: React.FC<{
   cards: ActionCard[];
   levelFilter: LevelFilter;
-  isLastInCategory?: boolean;
-}> = ({ cards, levelFilter, isLastInCategory }) => {
+}> = ({ cards, levelFilter }) => {
   const displayCards =
     levelFilter === 'all'
       ? cards
@@ -83,7 +77,7 @@ const ActionCardGroup: React.FC<{
   if (displayCards.length === 0) return null;
 
   return (
-    <div className={`flex items-start gap-3 ${isLastInCategory ? '' : ''}`}>
+    <div className='flex items-start gap-3'>
       {displayCards.map((card) => (
         <ActionCardItem key={card.id} card={card} />
       ))}
@@ -115,16 +109,15 @@ const CategorySection: React.FC<{
 
   return (
     <div className='flex flex-col gap-4'>
-      <h2 className='text-lg font-semibold text-foreground/90 border-b border-border/50 pb-2'>
+      <h2 className='border-b border-border/50 pb-2 text-lg font-semibold text-foreground/90'>
         {label}
       </h2>
       <div className='flex flex-wrap gap-x-5 gap-y-6'>
-        {sortedGroupKeys.map((groupKey, index) => (
+        {sortedGroupKeys.map((groupKey) => (
           <ActionCardGroup
             key={groupKey}
             cards={groupedCards[groupKey]}
             levelFilter={levelFilter}
-            isLastInCategory={index === sortedGroupKeys.length - 1}
           />
         ))}
       </div>
@@ -134,63 +127,103 @@ const CategorySection: React.FC<{
 
 export const ActionCardList: React.FC = () => {
   const { t } = useTranslation('common');
+  const pageTitle = t('actions.title');
   const [selectedCategory, setSelectedCategory] = useState<
     ActionCategory | 'all'
   >('all');
   const [levelFilter, setLevelFilter] = useState<LevelFilter>('all');
+  const [showBaseCards, setShowBaseCards] = useState(false);
+  const [showUpgradeCards, setShowUpgradeCards] = useState(true);
+
+  const handleCardSetToggle = (type: 'upgrade' | 'base') => {
+    if (type === 'upgrade') {
+      if (showUpgradeCards && !showBaseCards) return;
+      setShowUpgradeCards((prev) => !prev);
+      return;
+    }
+
+    if (showBaseCards && !showUpgradeCards) return;
+    setShowBaseCards((prev) => !prev);
+  };
 
   const categoryLabels: Record<ActionCategory | 'all', string> = useMemo(
     () => ({
-      all: t('actions.all', '全部'),
-      animals: t('actions.animals', '动物'),
-      association: t('actions.association', '协会'),
-      build: t('actions.build', '建造'),
-      cards: t('actions.cards', '卡牌'),
-      sponsors: t('actions.sponsors', '赞助'),
+      all: t('actions.all'),
+      animals: t('actions.animals'),
+      association: t('actions.association'),
+      build: t('actions.build'),
+      cards: t('actions.cards'),
+      sponsors: t('actions.sponsors'),
     }),
     [t],
   );
 
   const levelLabels = useMemo(
     () => ({
-      all: t('actions.level_all', '全部'),
-      1: t('actions.level_1', 'I级'),
-      2: t('actions.level_2', 'II级'),
+      all: t('actions.level_all'),
+      1: t('actions.level_1'),
+      2: t('actions.level_2'),
     }),
     [t],
   );
 
   const filteredCards = useMemo(() => {
-    let cards = ACTION_CARDS;
+    let cards: ActionCard[] = [];
+    if (showUpgradeCards) cards = [...cards, ...ACTION_CARDS];
+    if (showBaseCards) cards = [...cards, ...BASE_ACTION_CARDS];
     if (selectedCategory !== 'all') {
       cards = cards.filter((card) => card.category === selectedCategory);
     }
     return cards;
-  }, [selectedCategory]);
+  }, [selectedCategory, showBaseCards, showUpgradeCards]);
 
   const categoriesToDisplay =
     selectedCategory === 'all' ? CATEGORY_ORDER : [selectedCategory];
 
   return (
     <Layout>
-      <Seo templateTitle='行动卡牌' />
+      <Seo templateTitle={pageTitle} />
 
       <div className='flex flex-col gap-6 px-3 py-3 md:px-5'>
-        <h1 className='text-2xl font-bold text-foreground'>
-          {t('actions.title', '海洋扩变体行动卡')}
-        </h1>
+        <h1 className='text-2xl font-bold text-foreground'>{pageTitle}</h1>
 
-        <Alert className='bg-primary/5 border-primary/20'>
-          <AlertDescription>
-            {t(
-              'actions.beta_notice',
-              'This page is in beta testing. Features are under active development and will support multiple languages in the future.',
-            )}
-          </AlertDescription>
-        </Alert>
+        <div className='rounded-2xl border border-border/40 bg-gradient-to-br from-background via-sage-50/20 to-forest-50/10 p-4 shadow-sm'>
+          <div className='mb-4 flex flex-col gap-2'>
+            <span className='text-xs font-semibold tracking-[0.12em] text-foreground/60'>
+              {t('actions.card_set_label')}
+            </span>
+            <div className='inline-flex w-fit rounded-2xl border border-primary/20 bg-gradient-to-r from-sage-100/50 via-white to-forest-100/40 p-1 shadow-inner'>
+              <button
+                type='button'
+                onClick={() => handleCardSetToggle('upgrade')}
+                className={cn(
+                  'h-9 rounded-xl px-4 text-xs font-semibold transition-all md:px-5 md:text-sm',
+                  showUpgradeCards
+                    ? 'bg-white text-primary shadow-md ring-1 ring-primary/25'
+                    : 'text-foreground/70 hover:text-foreground',
+                )}
+              >
+                {t('actions.upgraded_cards_toggle')}
+              </button>
+              <button
+                type='button'
+                onClick={() => handleCardSetToggle('base')}
+                className={cn(
+                  'h-9 rounded-xl px-4 text-xs font-semibold transition-all md:px-5 md:text-sm',
+                  showBaseCards
+                    ? 'bg-white text-primary shadow-md ring-1 ring-primary/25'
+                    : 'text-foreground/70 hover:text-foreground',
+                )}
+              >
+                {t('actions.base_cards_toggle')}
+              </button>
+            </div>
+          </div>
 
-        <div className='flex flex-col gap-3'>
-          <div className='flex flex-wrap gap-2'>
+          <div className='mb-2 text-xs font-semibold tracking-[0.12em] text-foreground/60'>
+            {t('actions.category_label')}
+          </div>
+          <div className='mb-3 flex flex-wrap gap-2'>
             {(['all', ...CATEGORY_ORDER] as const).map((cat) => (
               <TextButton
                 key={cat}
@@ -204,6 +237,9 @@ export const ActionCardList: React.FC = () => {
             ))}
           </div>
 
+          <div className='mb-2 text-xs font-semibold tracking-[0.12em] text-foreground/60'>
+            {t('actions.level_label')}
+          </div>
           <div className='flex flex-wrap gap-2'>
             {(['all', 1, 2] as const).map((level) => (
               <TextButton
@@ -220,6 +256,11 @@ export const ActionCardList: React.FC = () => {
         </div>
 
         <div className='flex flex-col gap-10'>
+          {filteredCards.length === 0 && (
+            <Alert className='border-primary/20 bg-primary/5'>
+              <AlertDescription>{t('actions.empty_card_set')}</AlertDescription>
+            </Alert>
+          )}
           {categoriesToDisplay.map((category) => (
             <CategorySection
               key={category}

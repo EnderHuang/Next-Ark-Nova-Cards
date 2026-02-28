@@ -5,7 +5,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import { getActionCardDescription } from '@/data/ActionCardDescriptions';
-import { ACTION_CARDS, ActionCard } from '@/data/ActionCards';
+import {
+  ActionCard,
+  ALL_ACTION_CARDS,
+  getLocalizedActionImagePath,
+} from '@/data/ActionCards';
 
 interface ActionCardModalProps {
   cardId: string;
@@ -17,11 +21,12 @@ const ActionCardLevelSection: React.FC<{
   card: ActionCard;
   descriptionKeys: string[];
   t: (key: string) => string;
-}> = ({ card, descriptionKeys, t }) => (
+  language: string;
+}> = ({ card, descriptionKeys, t, language }) => (
   <div className='flex gap-4'>
     <div className='relative h-[260px] w-[185px] flex-shrink-0 overflow-hidden rounded-lg shadow-lg ring-1 ring-border/50'>
       <Image
-        src={card.image}
+        src={getLocalizedActionImagePath(card.image, language, card.isBase)}
         alt={card.name}
         fill
         className='object-contain'
@@ -48,14 +53,14 @@ const ActionCardModal: React.FC<ActionCardModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const [mounted, setMounted] = useState(false);
   const description = getActionCardDescription(cardId);
 
-  const level1Card = ACTION_CARDS.find(
+  const level1Card = ALL_ACTION_CARDS.find(
     (c) => c.id === `${cardId.replace(/_\d$/, '_1')}`,
   );
-  const level2Card = ACTION_CARDS.find(
+  const level2Card = ALL_ACTION_CARDS.find(
     (c) => c.id === `${cardId.replace(/_\d$/, '_2')}`,
   );
 
@@ -138,6 +143,7 @@ const ActionCardModal: React.FC<ActionCardModalProps> = ({
                 card={level1Card}
                 descriptionKeys={description.level1Keys}
                 t={t}
+                language={i18n.language}
               />
 
               {level2Card && (
@@ -145,6 +151,7 @@ const ActionCardModal: React.FC<ActionCardModalProps> = ({
                   card={level2Card}
                   descriptionKeys={description.level2Keys}
                   t={t}
+                  language={i18n.language}
                 />
               )}
             </div>

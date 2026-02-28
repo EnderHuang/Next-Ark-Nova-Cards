@@ -14,6 +14,7 @@ export interface ActionCard {
   variant: number;
   name: string;
   image: string;
+  isBase?: boolean;
 }
 
 export const ACTION_CATEGORIES: { key: ActionCategory; label: string }[] = [
@@ -31,7 +32,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 1,
     name: '动物减条件（Ignore Animals）',
-    image: '/img/actions/animals/animals_1_1_动物减条件（Ignore Animals）.jpg',
+    image:
+      '/img/actions/cn/animals/animals_1_1_动物减条件（Ignore Animals）.webp',
   },
   {
     id: 'animals_1_2',
@@ -39,7 +41,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 1,
     name: '动物减条件（Ignore Animals）',
-    image: '/img/actions/animals/animals_1_2_动物减条件（Ignore Animals）.jpg',
+    image:
+      '/img/actions/cn/animals/animals_1_2_动物减条件（Ignore Animals）.webp',
   },
   {
     id: 'animals_2_1',
@@ -47,7 +50,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 2,
     name: '动物狩猎（Hunter Animals）',
-    image: '/img/actions/animals/animals_2_1_动物狩猎（Hunter Animals）.jpg',
+    image:
+      '/img/actions/cn/animals/animals_2_1_动物狩猎（Hunter Animals）.webp',
   },
   {
     id: 'animals_2_2',
@@ -55,7 +59,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 2,
     name: '动物狩猎（Hunter Animals）',
-    image: '/img/actions/animals/animals_2_2_动物狩猎（Hunter Animals）.jpg',
+    image:
+      '/img/actions/cn/animals/animals_2_2_动物狩猎（Hunter Animals）.webp',
   },
   {
     id: 'animals_3_1',
@@ -63,7 +68,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 3,
     name: '动物 -2C（Discount Animals）',
-    image: '/img/actions/animals/animals_3_1_动物 -2C（Discount Animals）.jpg',
+    image:
+      '/img/actions/cn/animals/animals_3_1_动物 -2C（Discount Animals）.webp',
   },
   {
     id: 'animals_3_2',
@@ -71,7 +77,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 3,
     name: '动物 -2C（Discount Animals）',
-    image: '/img/actions/animals/animals_3_2_动物 -2C（Discount Animals）.jpg',
+    image:
+      '/img/actions/cn/animals/animals_3_2_动物 -2C（Discount Animals）.webp',
   },
   {
     id: 'animals_4_1',
@@ -79,7 +86,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 4,
     name: '动物标记（Mark Animals）',
-    image: '/img/actions/animals/animals_4_1_动物标记（Mark Animals）.jpg',
+    image: '/img/actions/cn/animals/animals_4_1_动物标记（Mark Animals）.webp',
   },
   {
     id: 'animals_4_2',
@@ -87,7 +94,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 4,
     name: '动物标记（Mark Animals）',
-    image: '/img/actions/animals/animals_4_2_动物标记（Mark Animals）.jpg',
+    image: '/img/actions/cn/animals/animals_4_2_动物标记（Mark Animals）.webp',
   },
   {
     id: 'association_1_1',
@@ -96,7 +103,7 @@ export const ACTION_CARDS: ActionCard[] = [
     variant: 1,
     name: '重复协（Supply Association）',
     image:
-      '/img/actions/association/association_1_1_重复协（Supply Association）.jpg',
+      '/img/actions/cn/association/association_1_1_重复协（Supply Association）.webp',
   },
   {
     id: 'association_1_2',
@@ -105,7 +112,7 @@ export const ACTION_CARDS: ActionCard[] = [
     variant: 1,
     name: '重复协（Supply Association）',
     image:
-      '/img/actions/association/association_1_2_重复协（Supply Association）.jpg',
+      '/img/actions/cn/association/association_1_2_重复协（Supply Association）.webp',
   },
   {
     id: 'association_2_1',
@@ -114,7 +121,7 @@ export const ACTION_CARDS: ActionCard[] = [
     variant: 2,
     name: '生人协（Hire Association）',
     image:
-      '/img/actions/association/association_2_1_生人协（Hire Association）.jpg',
+      '/img/actions/cn/association/association_2_1_生人协（Hire Association）.webp',
   },
   {
     id: 'association_2_2',
@@ -123,7 +130,7 @@ export const ACTION_CARDS: ActionCard[] = [
     variant: 2,
     name: '生人协（Hire Association）',
     image:
-      '/img/actions/association/association_2_2_生人协（Hire Association）.jpg',
+      '/img/actions/cn/association/association_2_2_生人协（Hire Association）.webp',
   },
   {
     id: 'association_3_1',
@@ -131,7 +138,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 3,
     name: '协 X（X Association）',
-    image: '/img/actions/association/association_3_1_协 X（X Association）.jpg',
+    image:
+      '/img/actions/cn/association/association_3_1_协 X（X Association）.webp',
   },
   {
     id: 'association_3_2',
@@ -139,7 +147,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 3,
     name: '协 X（X Association）',
-    image: '/img/actions/association/association_3_2_协 X（X Association）.jpg',
+    image:
+      '/img/actions/cn/association/association_3_2_协 X（X Association）.webp',
   },
   {
     id: 'association_4_1',
@@ -148,7 +157,7 @@ export const ACTION_CARDS: ActionCard[] = [
     variant: 4,
     name: '果断协（Self-clever Association）',
     image:
-      '/img/actions/association/association_4_1_果断协（Self-clever Association）.jpg',
+      '/img/actions/cn/association/association_4_1_果断协（Self-clever Association）.webp',
   },
   {
     id: 'association_4_2',
@@ -157,7 +166,7 @@ export const ACTION_CARDS: ActionCard[] = [
     variant: 4,
     name: '果断协（Self-clever Association）',
     image:
-      '/img/actions/association/association_4_2_果断协（Self-clever Association）.jpg',
+      '/img/actions/cn/association/association_4_2_果断协（Self-clever Association）.webp',
   },
   {
     id: 'build_1_1',
@@ -165,7 +174,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 1,
     name: '粉亭建（Pavillion Build）',
-    image: '/img/actions/build/build_1_1_粉亭建（Pavillion Build）.jpg',
+    image: '/img/actions/cn/build/build_1_1_粉亭建（Pavillion Build）.webp',
   },
   {
     id: 'build_1_2',
@@ -173,7 +182,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 1,
     name: '粉亭建（Pavillion Build）',
-    image: '/img/actions/build/build_1_2_粉亭建（Pavillion Build）.jpg',
+    image: '/img/actions/cn/build/build_1_2_粉亭建（Pavillion Build）.webp',
   },
   {
     id: 'build_2_1',
@@ -181,7 +190,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 2,
     name: '黑亭建（Kiosk Build）',
-    image: '/img/actions/build/build_2_1_黑亭建（Kiosk Build）.jpg',
+    image: '/img/actions/cn/build/build_2_1_黑亭建（Kiosk Build）.webp',
   },
   {
     id: 'build_2_2',
@@ -189,7 +198,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 2,
     name: '黑亭建（Kiosk Build）',
-    image: '/img/actions/build/build_2_2_黑亭建（Kiosk Build）.jpg',
+    image: '/img/actions/cn/build/build_2_2_黑亭建（Kiosk Build）.webp',
   },
   {
     id: 'build_3_1',
@@ -197,7 +206,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 3,
     name: '+1 建 （+1 Build）',
-    image: '/img/actions/build/build_3_1_+1 建 （+1 Build）.jpg',
+    image: '/img/actions/cn/build/build_3_1_+1 建 （+1 Build）.webp',
   },
   {
     id: 'build_3_2',
@@ -205,7 +214,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 3,
     name: '+1 建 （+1 Build）',
-    image: '/img/actions/build/build_3_2_+1 建 （+1 Build）.jpg',
+    image: '/img/actions/cn/build/build_3_2_+1 建 （+1 Build）.webp',
   },
   {
     id: 'build_4_1',
@@ -213,7 +222,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 4,
     name: '山水建（Terrain Build）',
-    image: '/img/actions/build/build_4_1_山水建（Terrain Build）.jpg',
+    image: '/img/actions/cn/build/build_4_1_山水建（Terrain Build）.webp',
   },
   {
     id: 'build_4_2',
@@ -221,7 +230,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 4,
     name: '山水建（Terrain Build）',
-    image: '/img/actions/build/build_4_2_山水建（Terrain Build）.jpg',
+    image: '/img/actions/cn/build/build_4_2_山水建（Terrain Build）.webp',
   },
   {
     id: 'cards_1_1',
@@ -229,7 +238,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 1,
     name: '不弃牌（Keep Cards）',
-    image: '/img/actions/cards/cards_1_1_不弃牌（Keep Cards）.jpg',
+    image: '/img/actions/cn/cards/cards_1_1_不弃牌（Keep Cards）.webp',
   },
   {
     id: 'cards_1_2',
@@ -237,7 +246,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 1,
     name: '不弃牌（Keep Cards）',
-    image: '/img/actions/cards/cards_1_2_不弃牌（Keep Cards）.jpg',
+    image: '/img/actions/cn/cards/cards_1_2_不弃牌（Keep Cards）.webp',
   },
   {
     id: 'cards_2_1',
@@ -245,7 +254,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 2,
     name: '刨挖牌（Digging Cards）',
-    image: '/img/actions/cards/cards_2_1_刨挖牌（Digging Cards）.jpg',
+    image: '/img/actions/cn/cards/cards_2_1_刨挖牌（Digging Cards）.webp',
   },
   {
     id: 'cards_2_2',
@@ -253,7 +262,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 2,
     name: '刨挖牌（Digging Cards）',
-    image: '/img/actions/cards/cards_2_2_刨挖牌（Digging Cards）.jpg',
+    image: '/img/actions/cn/cards/cards_2_2_刨挖牌（Digging Cards）.webp',
   },
   {
     id: 'cards_3_1',
@@ -261,7 +270,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 3,
     name: '精选牌（Snap Cards）',
-    image: '/img/actions/cards/cards_3_1_精选牌（Snap Cards）.jpg',
+    image: '/img/actions/cn/cards/cards_3_1_精选牌（Snap Cards）.webp',
   },
   {
     id: 'cards_3_2',
@@ -269,7 +278,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 3,
     name: '精选牌（Snap Cards）',
-    image: '/img/actions/cards/cards_3_2_精选牌（Snap Cards）.jpg',
+    image: '/img/actions/cn/cards/cards_3_2_精选牌（Snap Cards）.webp',
   },
   {
     id: 'cards_4_1',
@@ -277,7 +286,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 4,
     name: '机灵牌（Clever Cards）',
-    image: '/img/actions/cards/cards_4_1_机灵牌（Clever Cards）.jpg',
+    image: '/img/actions/cn/cards/cards_4_1_机灵牌（Clever Cards）.webp',
   },
   {
     id: 'cards_4_2',
@@ -285,7 +294,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 4,
     name: '机灵牌（Clever Cards）',
-    image: '/img/actions/cards/cards_4_2_机灵牌（Clever Cards）.jpg',
+    image: '/img/actions/cn/cards/cards_4_2_机灵牌（Clever Cards）.webp',
   },
   {
     id: 'sponsors_1_1',
@@ -293,7 +302,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 1,
     name: '赞X 5C（Money Sponsors）',
-    image: '/img/actions/sponsors/sponsors_1_1_赞X 5C（Money Sponsors）.jpg',
+    image:
+      '/img/actions/cn/sponsors/sponsors_1_1_赞X 5C（Money Sponsors）.webp',
   },
   {
     id: 'sponsors_1_2',
@@ -301,7 +311,8 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 1,
     name: '赞X 5C（Money Sponsors）',
-    image: '/img/actions/sponsors/sponsors_1_2_赞X 5C（Money Sponsors）.jpg',
+    image:
+      '/img/actions/cn/sponsors/sponsors_1_2_赞X 5C（Money Sponsors）.webp',
   },
   {
     id: 'sponsors_2_1',
@@ -309,7 +320,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 2,
     name: '赞 3C（Money Sponsors）',
-    image: '/img/actions/sponsors/sponsors_2_1_赞 3C（Money Sponsors）.jpg',
+    image: '/img/actions/cn/sponsors/sponsors_2_1_赞 3C（Money Sponsors）.webp',
   },
   {
     id: 'sponsors_2_2',
@@ -317,7 +328,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 2,
     name: '赞 3C（Money Sponsors）',
-    image: '/img/actions/sponsors/sponsors_2_2_赞 3C（Money Sponsors）.jpg',
+    image: '/img/actions/cn/sponsors/sponsors_2_2_赞 3C（Money Sponsors）.webp',
   },
   {
     id: 'sponsors_3_1',
@@ -326,7 +337,7 @@ export const ACTION_CARDS: ActionCard[] = [
     variant: 3,
     name: '赞 4C（Sunbathing Sponsors）',
     image:
-      '/img/actions/sponsors/sponsors_3_1_赞 4C（Sunbathing Sponsors）.jpg',
+      '/img/actions/cn/sponsors/sponsors_3_1_赞 4C（Sunbathing Sponsors）.webp',
   },
   {
     id: 'sponsors_3_2',
@@ -335,7 +346,7 @@ export const ACTION_CARDS: ActionCard[] = [
     variant: 3,
     name: '赞 4C（Sunbathing Sponsors）',
     image:
-      '/img/actions/sponsors/sponsors_3_2_赞 4C（Sunbathing Sponsors）.jpg',
+      '/img/actions/cn/sponsors/sponsors_3_2_赞 4C（Sunbathing Sponsors）.webp',
   },
   {
     id: 'sponsors_4_1',
@@ -343,7 +354,7 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 1,
     variant: 4,
     name: '赞换赞（Snap Sponsors）',
-    image: '/img/actions/sponsors/Sponsors_4_1_赞换赞（Snap Sponsors）.jpg',
+    image: '/img/actions/cn/sponsors/sponsors_4_1_赞换赞（Snap Sponsors）.webp',
   },
   {
     id: 'sponsors_4_2',
@@ -351,9 +362,123 @@ export const ACTION_CARDS: ActionCard[] = [
     level: 2,
     variant: 4,
     name: '赞换赞（Snap Sponsors）',
-    image: '/img/actions/sponsors/sponsors_4_2_赞换赞（Snap Sponsors）.jpg',
+    image: '/img/actions/cn/sponsors/sponsors_4_2_赞换赞（Snap Sponsors）.webp',
   },
 ];
+
+export const BASE_ACTION_CARDS: ActionCard[] = [
+  {
+    id: 'animals_0_1',
+    category: 'animals',
+    level: 1,
+    variant: 0,
+    name: '动物（Animals）',
+    image: '/img/actions/en/animals/animals_0_1_动物（Animals）.webp',
+    isBase: true,
+  },
+  {
+    id: 'animals_0_2',
+    category: 'animals',
+    level: 2,
+    variant: 0,
+    name: '动物（Animals）',
+    image: '/img/actions/en/animals/animals_0_2_动物（Animals）.webp',
+    isBase: true,
+  },
+  {
+    id: 'association_0_1',
+    category: 'association',
+    level: 1,
+    variant: 0,
+    name: '协会（Association）',
+    image:
+      '/img/actions/en/association/association_0_1_协会（Association）.webp',
+    isBase: true,
+  },
+  {
+    id: 'association_0_2',
+    category: 'association',
+    level: 2,
+    variant: 0,
+    name: '协会（Association）',
+    image:
+      '/img/actions/en/association/association_0_2_协会（Association）.webp',
+    isBase: true,
+  },
+  {
+    id: 'build_0_1',
+    category: 'build',
+    level: 1,
+    variant: 0,
+    name: '建造（Build）',
+    image: '/img/actions/en/build/build_0_1_建造（Build）.webp',
+    isBase: true,
+  },
+  {
+    id: 'build_0_2',
+    category: 'build',
+    level: 2,
+    variant: 0,
+    name: '建造（Build）',
+    image: '/img/actions/en/build/build_0_2_建造（Build）.webp',
+    isBase: true,
+  },
+  {
+    id: 'cards_0_1',
+    category: 'cards',
+    level: 1,
+    variant: 0,
+    name: '卡牌（Cards）',
+    image: '/img/actions/en/cards/cards_0_1_卡牌（Cards）.webp',
+    isBase: true,
+  },
+  {
+    id: 'cards_0_2',
+    category: 'cards',
+    level: 2,
+    variant: 0,
+    name: '卡牌（Cards）',
+    image: '/img/actions/en/cards/cards_0_2_卡牌（Cards）.webp',
+    isBase: true,
+  },
+  {
+    id: 'sponsors_0_1',
+    category: 'sponsors',
+    level: 1,
+    variant: 0,
+    name: '赞助商（Money Sponsors）',
+    image:
+      '/img/actions/en/sponsors/sponsors_0_1_赞助商（Money Sponsors）.webp',
+    isBase: true,
+  },
+  {
+    id: 'sponsors_0_2',
+    category: 'sponsors',
+    level: 2,
+    variant: 0,
+    name: '赞助商（Money Sponsors）',
+    image:
+      '/img/actions/en/sponsors/sponsors_0_2_赞助商（Money Sponsors）.webp',
+    isBase: true,
+  },
+];
+
+export const ALL_ACTION_CARDS: ActionCard[] = [
+  ...ACTION_CARDS,
+  ...BASE_ACTION_CARDS,
+];
+
+export function getLocalizedActionImagePath(
+  imagePath: string,
+  language: string,
+  isBase = false,
+) {
+  if (isBase) return imagePath;
+  const isZhCN = language === 'zh-CN' || language === 'zh';
+  return isZhCN
+    ? imagePath
+    : imagePath.replace('/img/actions/cn/', '/img/actions/en/');
+}
 
 export function getGroupedCards(cards: ActionCard[]) {
   const grouped: Record<string, ActionCard[]> = {};
